@@ -10,7 +10,7 @@ namespace Math_For_Games
     {
         private float _speed;
         private Vector2 _velocity;
-        private Player _playerToChase;
+        private Actor _actorToChase;
 
         public float Speed
         {
@@ -23,20 +23,20 @@ namespace Math_For_Games
             set { _velocity = value; }
         }
 
-        public Enemy(char icon, float x, float y, float speed, Color color, Player player, string name = "actor")
+        public Enemy(char icon, float x, float y, float speed, Color color, Actor actor, string name = "actor")
             : base(icon, x, y, color)
         {
             _speed = speed;
-            _playerToChase = player;
+            _actorToChase = actor;
         }
 
         public override void Update(float deltaTime)
         {
             //The Enemy runs towards the player's position
-            Vector2 moveDirection = _playerToChase.Position - Position;
+            Vector2 moveDirection = _actorToChase.Position - Position;
 
             //The enemy runs away from the player's position
-            //Vector2 moveDirection = Position - _playerToChase.Position;
+            //Vector2 moveDirection = Position - _actorToChase.Position;
 
             Velocity = moveDirection.Normalized * Speed * deltaTime;
             Position += Velocity;
