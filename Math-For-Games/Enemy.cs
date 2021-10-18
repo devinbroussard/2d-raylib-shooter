@@ -32,8 +32,11 @@ namespace Math_For_Games
 
         public override void Update(float deltaTime)
         {
+            //The Enemy runs towards the player's position
+            Vector2 moveDirection = _playerToChase.Position - Position;
 
-            Vector2 moveDirection = _playerToChase.Position;
+            //The enemy runs away from the player's position
+            //Vector2 moveDirection = Position - _playerToChase.Position;
 
             Velocity = moveDirection.Normalized * Speed * deltaTime;
             Position += Velocity;

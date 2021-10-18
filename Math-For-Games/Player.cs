@@ -49,7 +49,7 @@ namespace Math_For_Games
 
         public override void OnCollision(Actor actor)
         {
-            Engine.CloseApplication();
+            Console.WriteLine("A collision has occured!");
         }
     }
 }
