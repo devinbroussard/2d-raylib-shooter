@@ -62,8 +62,11 @@ namespace Math_For_Games
 
             Scene scene = new Scene();
             Player player = new Player('@', 10, 10, 50, Color.GOLD, "Player");
+            Enemy enemy = new Enemy('X', 150, 150, 20, Color.RED, player, "Enemy");
 
             scene.AddActor(player);
+            scene.AddActor(enemy);
+
             _currentSceneIndex = AddScene(scene);
             _scenes[_currentSceneIndex].Start();
 
