@@ -12,6 +12,7 @@ namespace Math_For_Games
         private Vector2 _velocity;
         private Actor _actorToChase;
         private float _maxFov;
+        private int _health;
 
         public float Speed
         {
@@ -23,18 +24,30 @@ namespace Math_For_Games
             get { return _velocity; }
             set { _velocity = value; }
         }
+        public int Health
+        {
+            get { return _health; }
+        }
 
-        public Enemy(char icon, float x, float y, float speed, Color color, Actor actor, float maxFov, string name = "actor")
+        public Enemy(char icon, float x, float y, float speed, Color color, Actor actor,
+            float maxFov, float collisionRadius, int health, string name = "actor")
             : base(icon, x, y, color)
         {
             _speed = speed;
             _actorToChase = actor;
             _maxFov = maxFov;
-            CollisionRadius = 40;
+            CollisionRadius = collisionRadius;
+            _health = health;
         }
 
         public override void Update(float deltaTime)
         {
+            if (_health is 0)
+            {
+                End();
+                return;
+            }
+
             //The Enemy runs towards the player's position
             Vector2 moveDirection = _actorToChase.Position - Position;
 
@@ -63,9 +76,20 @@ namespace Math_For_Games
                 && distanceOfTarget < 200;
         }
 
+        private void TakeDamage()
+        {
+            _health--;
+        }
+
         public override void OnCollision(Actor actor)
         {
-            Engine.CloseApplication();
+            if (actor is Bullet)
+                TakeDamage();
+        }
+
+        public void End()
+        {
+
         }
     }
 }
