@@ -26,6 +26,7 @@ namespace Math_For_Games
             : base(icon, x, y, color)
         {
             _speed = speed;
+            CollisionRadius = 40;
         }
 
         public override void Update(float deltaTime)
@@ -49,7 +50,7 @@ namespace Math_For_Games
 
         public override void OnCollision(Actor actor)
         {
-            Console.WriteLine("A collision has occured!");
+           
         }
     }
 }

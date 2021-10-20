@@ -11,6 +11,7 @@ namespace Math_For_Games
         private float _speed;
         private Vector2 _velocity;
         private Actor _actorToChase;
+        private float _maxFov;
 
         public float Speed
         {
@@ -23,11 +24,13 @@ namespace Math_For_Games
             set { _velocity = value; }
         }
 
-        public Enemy(char icon, float x, float y, float speed, Color color, Actor actor, string name = "actor")
+        public Enemy(char icon, float x, float y, float speed, Color color, Actor actor, float maxFov, string name = "actor")
             : base(icon, x, y, color)
         {
             _speed = speed;
             _actorToChase = actor;
+            _maxFov = maxFov;
+            CollisionRadius = 40;
         }
 
         public override void Update(float deltaTime)
@@ -56,7 +59,8 @@ namespace Math_For_Games
             Vector2 directionOfTarget = (_actorToChase.Position - Position).Normalized;
             float distanceOfTarget = Vector2.GetDistance(_actorToChase.Position, Position);
 
-            return (Math.Acos(Vector2.GetDotProduct(directionOfTarget, Forward)) * 180/Math.PI) < 75 && distanceOfTarget < 200;
+            return (Math.Acos(Vector2.GetDotProduct(directionOfTarget, Forward)) * 180/Math.PI) < _maxFov
+                && distanceOfTarget < 200;
         }
 
         public override void OnCollision(Actor actor)

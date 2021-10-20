@@ -22,6 +22,13 @@ namespace Math_For_Games
         /// The forward facing direction of the actor
         /// </summary>
         private Vector2 _forward = new Vector2(1, 0);
+        private float _collisionRadius;
+
+        public float CollisionRadius
+        {
+            get { return _collisionRadius; }
+            set { _collisionRadius = value; }
+        }
 
         public Vector2 Forward
         {
@@ -82,6 +89,19 @@ namespace Math_For_Games
         public virtual void OnCollision(Actor actor)
         {
 
+        }
+
+        /// <summary>
+        /// Checks if this actor collided with another actor
+        /// </summary>
+        /// <param name="other"The actor to check for a collision against></param>
+        /// <returns>True if a collision has occured</returns>
+        public virtual bool CheckForCollision(Actor other)
+        {
+            float combinedRadii = other.CollisionRadius + CollisionRadius;
+            float distance = Vector2.GetDistance(Position, other.Position);
+
+            return distance <= combinedRadii;
         }
     }
 }

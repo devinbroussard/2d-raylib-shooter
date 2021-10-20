@@ -44,7 +44,7 @@ namespace Math_For_Games
 
                 for (int j = 0; j < _actors.Length; j++)
                 {
-                    if (_actors[i].Position == _actors[j].Position && j != i)
+                    if (_actors[i].CheckForCollision(_actors[j]) && j != i)
                         _actors[i].OnCollision(_actors[j]);
                 }
             }

@@ -61,8 +61,13 @@ namespace Math_For_Games
             Raylib.SetTargetFPS(0);
 
             Scene scene = new Scene();
+
+            
+            UIText text = new UIText(10, 10, "TestTextBox", Color.PINK, 200, 70, 15, "This is a test.");
+            scene.AddUIElement(text);
+
             Player player = new Player('@', 10, 10, 500, Color.PURPLE, "Player");
-            Enemy enemy = new Enemy('X', 150, 150, 100, Color.MAROON, player, "Enemy");
+            Enemy enemy = new Enemy('X', 150, 150, 100, Color.MAROON, player, 75, "Enemy");
 
             scene.AddActor(player);
             scene.AddActor(enemy);
