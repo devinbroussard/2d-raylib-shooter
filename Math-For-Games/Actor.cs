@@ -18,6 +18,16 @@ namespace Math_For_Games
         private string _name;
         private Vector2 _position;
         private bool _started;
+        /// <summary>
+        /// The forward facing direction of the actor
+        /// </summary>
+        private Vector2 _forward = new Vector2(1, 0);
+
+        public Vector2 Forward
+        {
+            get { return _forward; }
+            set { _forward = value; }
+        }
         
         /// <summary>
         /// True if the start function has been called for this actor

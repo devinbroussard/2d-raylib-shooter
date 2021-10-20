@@ -39,13 +39,24 @@ namespace Math_For_Games
             //Vector2 moveDirection = Position - _actorToChase.Position;
 
             Velocity = moveDirection.Normalized * Speed * deltaTime;
-            Position += Velocity;
+
+            if(IsTargetInSight())
+                Position += Velocity;
+
+            base.Update(deltaTime);
         }
 
         public override void Draw()
         {
             base.Draw();
+        }
 
+        public bool IsTargetInSight()
+        {
+            Vector2 directionOfTarget = (_actorToChase.Position - Position).Normalized;
+            float distanceOfTarget = Vector2.GetDistance(_actorToChase.Position, Position);
+
+            return (Math.Acos(Vector2.GetDotProduct(directionOfTarget, Forward)) * 180/Math.PI) < 75 && distanceOfTarget < 200;
         }
 
         public override void OnCollision(Actor actor)

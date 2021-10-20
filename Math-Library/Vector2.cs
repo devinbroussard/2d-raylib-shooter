@@ -46,6 +46,22 @@ namespace Math_Library
             else return this / Magnitude;
         }
 
+        /// <param name="lhs">The left hand side of the operation</param>
+        /// <param name="rhs">THe right hand side of the operation</param>
+        /// <returns>The doct product of the first vector onto the second</returns>
+        public static float GetDotProduct(Vector2 lhs, Vector2 rhs)
+        {
+            return (lhs.X * rhs.X) + (lhs.Y * rhs.Y);
+        }
+
+        /// <param name="lhs">Left hand side of operation</param>
+        /// <param name="rhs">Right hand side of operation</param>
+        /// <returns>Returns the distance between two vectors</returns>
+        public static float GetDistance(Vector2 lhs, Vector2 rhs)
+        {
+            return (rhs - lhs).Magnitude;
+        }
+
         /// <summary>
         /// Adds the x value and they values of the second vector to the first
         /// </summary>
