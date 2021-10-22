@@ -12,7 +12,7 @@ namespace Math_For_Games
         private float _cooldownTime;
         private float _lastHitTime;
 
-        public Player(char icon, float x, float y, Color color, float speed, int health, float cooldownTime, float collisionRadius = 50, string name = "Player")
+        public Player(char icon, float x, float y, Color color, float speed, int health, float cooldownTime, float collisionRadius = 20, string name = "Player")
             : base(icon, x, y, color, speed, health, name, collisionRadius)
         {
             Speed = speed;
