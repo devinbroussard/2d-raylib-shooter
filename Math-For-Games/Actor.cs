@@ -55,16 +55,17 @@ namespace Math_For_Games
             get { return _icon; }
         }
 
-        public Actor(char icon, float x, float y, Color color, string name = "Actor") :
+        public Actor(char icon, float x, float y, Color color, string name = "Actor", float collisionRadius = 0) :
             this(icon, new Vector2 { X = x, Y = y }, color, name)
         {
         }
 
-        public Actor(char icon, Vector2 position, Color color, string name = "Actor")
+        public Actor(char icon, Vector2 position, Color color, string name = "Actor", float collisionRadius = 0)
         {
             _icon = new Icon { Symbol = icon, Color = color};
             _position = position;
             _name = name;
+            _collisionRadius = collisionRadius;
         }
 
         public Actor()

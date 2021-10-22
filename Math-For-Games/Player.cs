@@ -11,11 +11,10 @@ namespace Math_For_Games
         private float _timeBetweenShots;
         private float _cooldownTime;
 
-        public Player(char icon, float x, float y, float speed, Color color, float collisionRadius, float cooldownTime, string name = "actor")
-            : base(icon, x, y, color)
+        public Player(char icon, float x, float y, Color color, float speed, int health, float cooldownTime, float collisionRadius = 0, string name = "Player")
+            : base(icon, x, y, color, speed, health, name, collisionRadius)
         {
-            _speed = speed;
-            CollisionRadius = collisionRadius;
+            Speed = speed;
             _cooldownTime = cooldownTime;
         }
 

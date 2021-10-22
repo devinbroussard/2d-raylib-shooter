@@ -17,14 +17,11 @@ namespace Math_For_Games
             get { return _health; }
         }
 
-        public Enemy( Color color, Actor actor, float maxFov, float collisionRadius, string name = "actor")
-            : base(icon, x, y, color)
+        public Enemy(char icon, float x, float y, Color color, float speed, int health, Actor actor, float maxFov, float collisionRadius = 20, string name = "Enemy")
+            : base(icon, x, y, color, speed, health, name, collisionRadius)
         {
-            Speed = speed;
             _actorToChase = actor;
             _maxFov = maxFov;
-            CollisionRadius = collisionRadius;
-            _health = health;
         }
 
         public override void Update(float deltaTime)

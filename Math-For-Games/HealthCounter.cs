@@ -8,24 +8,24 @@ namespace Math_For_Games
 {
     class HealthCounter : UIText
     {
-        private Enemy _enemy;
+        private Character _character;
 
-        public HealthCounter(float x, float y, string name, Color color, Enemy enemy)
+        public HealthCounter(float x, float y, string name, Color color, Character character)
             : base(x, y, name, color)
         {
-            _enemy = enemy;
-            Text = _enemy.Health.ToString();
+            _character = character;
+            Text = _character.Health.ToString();
         }
 
         public override void Update(float deltaTime)
         {
             base.Update(deltaTime);
 
-            if (_enemy.Health != 0)
-                Position = new Vector2(_enemy.Position.X, _enemy.Position.Y - 20);
+            if (_character.Health != 0)
+                Position = new Vector2(_character.Position.X, _character.Position.Y - 20);
             else
                 Engine.CurrentScene.RemoveUIElement(this);
-            Text = _enemy.Health.ToString();
+            Text = _character.Health.ToString();
 
         }
     }
