@@ -14,6 +14,7 @@ namespace Math_For_Games
         private static int _currentSceneIndex;
         private Scene[] _scenes = new Scene[0];
         private Stopwatch _stopwatch = new Stopwatch();
+        public static Scene CurrentScene;
 
         /// <summary>
         /// Called to begin the application
@@ -62,17 +63,20 @@ namespace Math_For_Games
 
             Scene scene = new Scene();
 
-            
+            Player player = new Player('>', 10, 10, 500, Color.PURPLE, 20, 0.3f, "Player");
+            Enemy enemy1 = new Enemy('X', 150, 150, 100, Color.MAROON, player, 75, 20, 5, "Enemy");
+
+            HealthCounter enemy1HealthCounter = new HealthCounter(enemy1.Position.X, enemy1.Position.Y, "Enemy1 Health Tracker", Color.GREEN, enemy1);
             UIText text = new UIText(10, 10, "TestTextBox", Color.PINK, 200, 70, 15, "This is a test.");
             scene.AddUIElement(text);
+            scene.AddUIElement(enemy1HealthCounter);
 
-            Player player = new Player('@', 10, 10, 500, Color.PURPLE, 20, scene, 2, "Player");
-            Enemy enemy = new Enemy('X', 150, 150, 100, Color.MAROON, player, 75, 20, "Enemy");
 
             scene.AddActor(player);
-            scene.AddActor(enemy);
+            scene.AddActor(enemy1);
 
             _currentSceneIndex = AddScene(scene);
+            CurrentScene = _scenes[_currentSceneIndex];
             _scenes[_currentSceneIndex].Start();
 
         }
@@ -95,7 +99,7 @@ namespace Math_For_Games
         private void Draw()
         {
             Raylib.BeginDrawing();
-            Raylib.ClearBackground(Color.BLACK);
+            Raylib.ClearBackground(Color.DARKGRAY);
 
             //Adds all actor icons to buffer
             _scenes[_currentSceneIndex].Draw();

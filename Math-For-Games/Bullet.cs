@@ -12,6 +12,7 @@ namespace Math_For_Games
         private Vector2 _velocity;
         private int _xDirection;
         private int _yDirection;
+        private float _timeAlive;
 
         private Vector2 _moveDirection;
 
@@ -35,6 +36,14 @@ namespace Math_For_Games
 
         public override void Update(float deltaTime)
         {
+            _timeAlive += deltaTime;
+
+            if (_timeAlive >= 1)
+            {
+                base.DestroySelf();
+                return;
+            }
+
             _velocity = MoveDirection * _speed * deltaTime;
 
             Position += _velocity;

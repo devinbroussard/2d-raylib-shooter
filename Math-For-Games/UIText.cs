@@ -36,6 +36,16 @@ namespace Math_For_Games
             Font = Raylib.LoadFont("resources/fonts/alagard.png");
         }
 
+        public UIText(float x, float y, string name, Color color)
+            : base('\0', x, y, color, name)
+        {
+            Text = "";
+            Width = 50;
+            Height = 50;
+            FontSize = 15;
+            Font = Raylib.LoadFont("resources/fonts/alagard.png");
+        }
+
         public override void Draw()
         {
             //Creating rectangle to use inside of Raylib's draw function

@@ -44,7 +44,8 @@ namespace Math_For_Games
 
                 for (int j = 0; j < _actors.Length; j++)
                 {
-                    if (_actors[i].CheckForCollision(_actors[j]) && j != i)
+                    if (i < _actors.Length - 1)
+                        if (_actors[i].CheckForCollision(_actors[j]) && j != i)
                         _actors[i].OnCollision(_actors[j]);
                 }
             }
@@ -75,7 +76,7 @@ namespace Math_For_Games
         public virtual void End()
         {
             for (int i = 0; i < _actors.Length; i++)
-                _actors[i].End();
+                _actors[i].DestroySelf();
         }
 
         /// <summary>
@@ -120,6 +121,48 @@ namespace Math_For_Games
             _UIElements = tempArray;
         }
 
+        /// <summary>
+        /// Removes an actor from the scene list of actors
+        /// </summary>
+        /// <param name="actor"></param>
+        /// <returns></returns>
+        public bool RemoveUIElement(UIText actor)
+        {
+            //Create a variable to store if the removal was successful
+            bool actorRemoved = false;
+            //Create a new array that is smaller than the original
+            Actor[] tempArray = new Actor[_UIElements.Length - 1];
+
+            //Creates a variable to store the index of the temparray
+            int j = 0;
+            //Copies all of the values except the actor we don't want into the new array
+            for (int i = 0; i < _UIElements.Length; i++)
+            {
+                //If the actor that th eloop is on is no tthe one to remove...
+                if (_UIElements[i] != actor)
+                {
+                    //...add the actor into the new array and increment the temp array counter
+                    tempArray[j] = _UIElements[i];
+                    j++;
+                }
+
+                //Otherwise if this actor is the one to remove...
+                else
+                {
+                    //...Set acorRemoved to true
+                    actorRemoved = true;
+                }
+            }
+
+            //If the actor removal was successful...
+            if (actorRemoved)
+                //Set the actors array to be the new array
+                _UIElements = tempArray;
+
+            //Return if an actor was removed
+            return actorRemoved;
+        }
+
 
         /// <summary>
         /// Removes an actor from the scene list of actors
@@ -136,7 +179,7 @@ namespace Math_For_Games
             //Creates a variable to store the index of the temparray
             int j = 0;
             //Copies all of the values except the actor we don't want into the new array
-            for (int i = 0; i < tempArray.Length; i++)
+            for (int i = 0; i < _actors.Length; i++)
             {
                 //If the actor that th eloop is on is no tthe one to remove...
                 if (_actors[i] != actor)

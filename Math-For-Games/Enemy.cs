@@ -6,34 +6,21 @@ using Raylib_cs;
 
 namespace Math_For_Games
 {
-    class Enemy : Actor
+    class Enemy : Character
     {
-        private float _speed;
-        private Vector2 _velocity;
         private Actor _actorToChase;
         private float _maxFov;
         private int _health;
 
-        public float Speed
-        {
-            get { return _speed; }
-            set { _speed = value; }
-        }
-        public Vector2 Velocity
-        {
-            get { return _velocity; }
-            set { _velocity = value; }
-        }
         public int Health
         {
             get { return _health; }
         }
 
-        public Enemy(char icon, float x, float y, float speed, Color color, Actor actor,
-            float maxFov, float collisionRadius, int health, string name = "actor")
+        public Enemy( Color color, Actor actor, float maxFov, float collisionRadius, string name = "actor")
             : base(icon, x, y, color)
         {
-            _speed = speed;
+            Speed = speed;
             _actorToChase = actor;
             _maxFov = maxFov;
             CollisionRadius = collisionRadius;
@@ -42,12 +29,6 @@ namespace Math_For_Games
 
         public override void Update(float deltaTime)
         {
-            if (_health is 0)
-            {
-                End();
-                return;
-            }
-
             //The Enemy runs towards the player's position
             Vector2 moveDirection = _actorToChase.Position - Position;
 
@@ -84,11 +65,13 @@ namespace Math_For_Games
         public override void OnCollision(Actor actor)
         {
             if (actor is Bullet)
-                TakeDamage();
-        }
-
-        public void End()
-        {
+            {
+                if (_health > 0)
+                    TakeDamage();
+                if (_health == 0)
+                    DestroySelf();
+                actor.DestroySelf();
+            }
 
         }
     }

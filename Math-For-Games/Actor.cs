@@ -81,10 +81,16 @@ namespace Math_For_Games
 
         public virtual void Draw() 
         {
-            Raylib.DrawText(Icon.Symbol.ToString(), (int)Position.X, (int)Position.Y, 50, Icon.Color);
+            Raylib.DrawText(Icon.Symbol.ToString(), (int)Position.X, (int)Position.Y, 20, Icon.Color);
         }
 
-        public void End() { }
+        public virtual void End()
+        { }
+
+        public void DestroySelf()
+        {
+            Engine.CurrentScene.RemoveActor(this);
+        }
 
         public virtual void OnCollision(Actor actor)
         {
