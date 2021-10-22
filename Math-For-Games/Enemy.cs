@@ -10,12 +10,6 @@ namespace Math_For_Games
     {
         private Actor _actorToChase;
         private float _maxFov;
-        private int _health;
-
-        public int Health
-        {
-            get { return _health; }
-        }
 
         public Enemy(char icon, float x, float y, Color color, float speed, int health, Actor actor, float maxFov, float collisionRadius = 20, string name = "Enemy")
             : base(icon, x, y, color, speed, health, name, collisionRadius)
@@ -56,16 +50,16 @@ namespace Math_For_Games
 
         private void TakeDamage()
         {
-            _health--;
+            Health--;
         }
 
         public override void OnCollision(Actor actor)
         {
             if (actor is Bullet)
             {
-                if (_health > 0)
+                if (Health > 0)
                     TakeDamage();
-                if (_health == 0)
+                if (Health == 0)
                     DestroySelf();
                 actor.DestroySelf();
             }

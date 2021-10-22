@@ -56,7 +56,7 @@ namespace Math_For_Games
         }
 
         public Actor(char icon, float x, float y, Color color, string name = "Actor", float collisionRadius = 0) :
-            this(icon, new Vector2 { X = x, Y = y }, color, name)
+            this(icon, new Vector2 { X = x, Y = y }, color, name, collisionRadius)
         {
         }
 
@@ -82,7 +82,8 @@ namespace Math_For_Games
 
         public virtual void Draw() 
         {
-            Raylib.DrawText(Icon.Symbol.ToString(), (int)Position.X, (int)Position.Y, 20, Icon.Color);
+            Raylib.DrawText(Icon.Symbol.ToString(), (int)Position.X - 15, (int)Position.Y - 15, 30, Icon.Color);
+
         }
 
         public virtual void End()

@@ -10,8 +10,9 @@ namespace Math_For_Games
     {
         private float _timeBetweenShots;
         private float _cooldownTime;
+        private float _lastHitTime;
 
-        public Player(char icon, float x, float y, Color color, float speed, int health, float cooldownTime, float collisionRadius = 0, string name = "Player")
+        public Player(char icon, float x, float y, Color color, float speed, int health, float cooldownTime, float collisionRadius = 50, string name = "Player")
             : base(icon, x, y, color, speed, health, name, collisionRadius)
         {
             Speed = speed;
@@ -20,6 +21,7 @@ namespace Math_For_Games
 
         public override void Update(float deltaTime)
         {
+            _lastHitTime += deltaTime;
             //Adds deltaTime to time between shots
             _timeBetweenShots += deltaTime;
 
@@ -41,7 +43,7 @@ namespace Math_For_Games
             if ((xDirectionForBullet != 0 || yDirectionForBullet != 0) && (_timeBetweenShots >=  _cooldownTime))
             {
                 _timeBetweenShots = deltaTime;
-                bullet = new Bullet('o', Position, Color.GOLD, 2000, "Player Bullet", xDirectionForBullet, yDirectionForBullet);
+                bullet = new Bullet('.', Position, Color.GOLD, 2000, "Player Bullet", xDirectionForBullet, yDirectionForBullet);
                 Engine.CurrentScene.AddActor(bullet);
             }
 
@@ -51,7 +53,19 @@ namespace Math_For_Games
 
         public override void OnCollision(Actor actor)
         {
-           
+            if (actor is Enemy)
+            {
+                if (Health > 0 && _lastHitTime > 3)
+                {
+                    _lastHitTime = 0;
+                    Health--;
+                }
+                if (Health <= 0)
+                {
+                    UIText deathText = new UIText(500, 500, "Death Text", Color.WHITE, 200, 200, 50, "You died!");
+                    Engine.CurrentScene.AddActor(deathText);
+                }
+            }
         }
     }
 }

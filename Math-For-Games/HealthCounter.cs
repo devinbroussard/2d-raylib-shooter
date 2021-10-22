@@ -22,7 +22,7 @@ namespace Math_For_Games
             base.Update(deltaTime);
 
             if (_character.Health != 0)
-                Position = new Vector2(_character.Position.X, _character.Position.Y - 20);
+                Position = new Vector2(_character.Position.X - 10 , _character.Position.Y - 25);
             else
                 Engine.CurrentScene.RemoveUIElement(this);
             Text = _character.Health.ToString();

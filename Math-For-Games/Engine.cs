@@ -62,19 +62,18 @@ namespace Math_For_Games
             Raylib.SetTargetFPS(0);
 
             Scene scene = new Scene();
-            
-            Player player = new Player('>', 10, 10, Color.DARKPURPLE, 500, 3, 0.3, )
-            Player player = new Player('>', 10, 10, 500, Color.PURPLE, 20, 0.3f, "Player");
-            Enemy enemy1 = new Enemy('X', 150, 150, 100, Color.MAROON, player, 75, 20, 5, "Enemy");
 
-            HealthCounter enemy1HealthCounter = new HealthCounter(enemy1.Position.X, enemy1.Position.Y, "Enemy1 Health Tracker", Color.GREEN, enemy1);
-            UIText text = new UIText(10, 10, "TestTextBox", Color.PINK, 200, 70, 15, "This is a test.");
-            scene.AddUIElement(text);
-            scene.AddUIElement(enemy1HealthCounter);
+            Player player = new Player('o', 10, 10, Color.SKYBLUE, 500, 3, 0.3f);
+            Enemy enemy1 = new Enemy('x', 150, 150, Color.MAROON, 100, 5, player, 120);
 
+            HealthCounter playerHealthCounter = new HealthCounter(player.Position.X, player.Position.Y, "Player Health Tracker", Color.SKYBLUE, player);
+            HealthCounter enemy1HealthCounter = new HealthCounter(enemy1.Position.X, enemy1.Position.Y, "Enemy1 Health Tracker", Color.MAROON, enemy1);
 
             scene.AddActor(player);
             scene.AddActor(enemy1);
+
+            scene.AddUIElement(playerHealthCounter);
+            scene.AddUIElement(enemy1HealthCounter);
 
             _currentSceneIndex = AddScene(scene);
             CurrentScene = _scenes[_currentSceneIndex];
@@ -100,7 +99,7 @@ namespace Math_For_Games
         private void Draw()
         {
             Raylib.BeginDrawing();
-            Raylib.ClearBackground(Color.DARKGRAY);
+            Raylib.ClearBackground(Color.BLACK);
 
             //Adds all actor icons to buffer
             _scenes[_currentSceneIndex].Draw();

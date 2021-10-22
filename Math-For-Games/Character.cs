@@ -31,7 +31,10 @@ namespace Math_For_Games
 
         public Character(char icon, float x, float y, Color color, float speed, int health, string name, float collisionRadius)
              : base(icon, x, y, color, name, collisionRadius)
-            {
-            }
+        {
+            _health = health;
+            _speed = speed;
+            Velocity = new Vector2(0, 0);
+        }
     }
 }
