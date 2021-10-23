@@ -63,17 +63,19 @@ namespace Math_For_Games
 
             Scene scene = new Scene();
 
-            Player player = new Player('o', 10, 10, Color.SKYBLUE, 500, 3, 0.3f);
-            Enemy enemy1 = new Enemy('x', 150, 150, Color.MAROON, 100, 5, player, 120, new Vector2(-1, 0));
-            Enemy enemy2 = new Enemy('x', 350, 200, Color.MAROON, 100, 5, player, 120, new Vector2(1, 0));
-            Enemy enemy3 = new Enemy('x', 50, 250, Color.MAROON, 100, 5, player, 120, new Vector2(0, -1));
-            Enemy enemy4 = new Enemy('x', 450, 250, Color.MAROON, 100, 5, player, 120, new Vector2(-1, 0));
-            Enemy enemy5 = new Enemy('x', 450, 10, Color.MAROON, 100, 5, player, 120, new Vector2(-1, 0));
+            Player player = new Player('o', 10, 10, Color.SKYBLUE, 200, 3, 0.3f);
+            Enemy enemy1 = new Enemy('x', 150, 150, Color.MAROON, 150, 5, player, 340, new Vector2(-1, 0));
+            Enemy enemy2 = new Enemy('x', 350, 200, Color.MAROON, 150, 5, player, 340, new Vector2(1, 0));
+            Enemy enemy3 = new Enemy('x', 50, 250, Color.MAROON, 150, 5, player, 340, new Vector2(0, -1));
+            Enemy enemy4 = new Enemy('x', 450, 250, Color.MAROON, 150, 5, player, 340, new Vector2(-1, 0));
+            Enemy enemy5 = new Enemy('x', 450, 10, Color.MAROON, 150, 5, player, 340, new Vector2(-1, 0));
 
             HealthCounter playerHealthCounter = new HealthCounter(player.Position.X, player.Position.Y, "Player Health Tracker", Color.SKYBLUE, player);
             HealthCounter enemy1HealthCounter = new HealthCounter(enemy1.Position.X, enemy1.Position.Y, "Enemy1 Health Tracker", Color.MAROON, enemy1);
             HealthCounter enemy2HealthCounter = new HealthCounter(enemy2.Position.X, enemy2.Position.Y, "Enemy2 Health Tracker", Color.MAROON, enemy2);
             HealthCounter enemy3HealthCounter = new HealthCounter(enemy3.Position.X, enemy3.Position.Y, "Enemy3 Health Tracker", Color.MAROON, enemy3);
+            HealthCounter enemy4HealthCounter = new HealthCounter(enemy4.Position.X, enemy4.Position.Y, "Enemy4 Health Tracker", Color.MAROON, enemy4);
+            HealthCounter enemy5HealthCounter = new HealthCounter(enemy5.Position.X, enemy5.Position.Y, "Enemy5 Health Tracker", Color.MAROON, enemy5);
 
             scene.AddActor(player);
             scene.AddActor(enemy1);
@@ -86,6 +88,8 @@ namespace Math_For_Games
             scene.AddUIElement(enemy1HealthCounter);
             scene.AddUIElement(enemy2HealthCounter);
             scene.AddUIElement(enemy3HealthCounter);
+            scene.AddUIElement(enemy4HealthCounter);
+            scene.AddUIElement(enemy5HealthCounter);
 
             _currentSceneIndex = AddScene(scene);
             CurrentScene = _scenes[_currentSceneIndex];

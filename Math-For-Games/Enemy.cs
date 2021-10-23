@@ -48,7 +48,7 @@ namespace Math_For_Games
             float distanceOfTarget = Vector2.GetDistance(_actorToChase.Position, Position);
 
             return (Math.Acos(Vector2.GetDotProduct(directionOfTarget, Forward)) * 180/Math.PI) < _maxFov
-                && distanceOfTarget < 200;
+                && distanceOfTarget < 500;
         }
 
         private void TakeDamage()
@@ -64,9 +64,10 @@ namespace Math_For_Games
                     TakeDamage();
                 if (Health == 0)
                 {
+                    _enemyCount--;
                     if (_enemyCount == 0)
                     {
-                        UIText winText = new UIText(500, 500, "Win Text", Color.WHITE, 200, 200, 50, "You won!");
+                        UIText winText = new UIText(300, 75, "Win Text", Color.WHITE, 200, 200, 50, "You won!");
                         Engine.CurrentScene.AddActor(winText);
                     }
                     DestroySelf();

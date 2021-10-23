@@ -55,15 +55,16 @@ namespace Math_For_Games
         {
             if (actor is Enemy)
             {
-                if (Health > 0 && _lastHitTime > 3)
+                if (Health > 0 && _lastHitTime > 1)
                 {
                     _lastHitTime = 0;
                     Health--;
                 }
                 if (Health <= 0)
                 {
-                    UIText deathText = new UIText(500, 500, "Death Text", Color.WHITE, 200, 200, 50, "You died!");
-                    Engine.CurrentScene.AddActor(deathText);
+                    DestroySelf();
+                    UIText loseText = new UIText(300, 75, "Lose Text", Color.WHITE, 200, 200, 50, "You lose!");
+                    Engine.CurrentScene.AddActor(loseText);
                 }
             }
         }

@@ -12,8 +12,10 @@ namespace Math_For_Games
         private Vector2 _velocity;
         private int _xDirection;
         private int _yDirection;
+        /// <summary>
+        /// Variable used to track the time that the bullet has been alive in the scene
+        /// </summary>
         private float _timeAlive;
-
         private Vector2 _moveDirection;
 
         public Vector2 MoveDirection
@@ -34,13 +36,22 @@ namespace Math_For_Games
             _yDirection = yDirection;
         }
 
+        
+        /// <summary>
+        /// Called every frame to update the bullet
+        /// </summary>
+        /// <param name="deltaTime"></param>
         public override void Update(float deltaTime)
         {
+            //Adds the delta time to the time that the bullet has been alive in the scene
             _timeAlive += deltaTime;
 
+            //If the time that the bullet has been alive reaches or goes over one second...
             if (_timeAlive >= 1)
             {
+                //...destroy the bullet...
                 base.DestroySelf();
+                //...and leave the function
                 return;
             }
 
