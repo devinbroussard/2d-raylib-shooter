@@ -10,8 +10,8 @@ namespace Math_For_Games
     {
         private float _speed;
         private Vector2 _velocity;
-        private int _xDirection;
-        private int _yDirection;
+        private float _xDirection;
+        private float _yDirection;
         /// <summary>
         /// Variable used to track the time that the bullet has been alive in the scene
         /// </summary>
@@ -34,17 +34,15 @@ namespace Math_For_Games
             set { value = _moveDirection; }
         }
 
-        public Bullet(char icon, Vector2 position, Color color, float speed, string name, int xDirection, int yDirection, Actor owner)
+        public Bullet(char icon, Vector2 position, Color color, float speed, string name, float xDirection, float yDirection, Actor owner)
             : base(icon, position, color, name)
         {
             _speed = speed;
             _xDirection = xDirection;
             _yDirection = yDirection;
             _owner = owner;
-            Tag = ActorTag.BULLET;
         }
 
-        
         /// <summary>
         /// Called every frame to update the bullet
         /// </summary>
@@ -55,7 +53,7 @@ namespace Math_For_Games
             _timeAlive += deltaTime;
 
             //If the time that the bullet has been alive reaches or goes over one second...
-            if (_timeAlive >= 1)
+            if (_timeAlive >= 3)
             {
                 //...destroy the bullet...
                 base.DestroySelf();
@@ -67,5 +65,68 @@ namespace Math_For_Games
 
             Position += _velocity;
         }
+
+        /// <summary>
+        /// Gets called on collision with an actor
+        /// </summary>
+        /// <param name="actor">The actor that a collision occured with</param>
+        public override void OnCollision(Actor actor)
+        {
+            //If the actor is an enemy and is not THIS actor...
+            if (actor.Tag == ActorTag.ENEMY && Owner.Tag != ActorTag.ENEMY)
+            {
+                //...cast the actor as an enemy...
+                Enemy enemy = (Enemy)actor;
+
+                //...If the enemy's health is above 0...
+                if (enemy.Health > 0)
+                    //...Tell the enemy to take damage
+                    enemy.TakeDamage();
+
+                //...If the enemy's health is 0...
+                if (enemy.Health == 0)
+                {
+                    //Decrement the static enemy count...
+                    Enemy.EnemyCount--;
+
+                    //If the enemy count is 0...
+                    if (Enemy.EnemyCount <= 0)
+                    {
+                        //Create winText UI showing the player that they beat the game...
+                        UIText winText = new UIText(300, 75, "Win Text", Color.WHITE, 200, 200, 50, "You won!");
+                        //...and add the UI to the scene
+                        Engine.CurrentScene.AddActor(winText);
+                    }
+                    //...and destroy the enemy;
+                    enemy.DestroySelf();
+                }
+
+                DestroySelf();
+            }
+            else if (actor.Tag == ActorTag.PLAYER && Owner.Tag != ActorTag.PLAYER)
+            {
+                Player player = (Player)actor;
+
+                if (player.Health > 0 && player.LastHitTime > 1)
+                {
+                    player.LastHitTime = 0;
+                    player.Health--;
+                }
+                if (player.Health <= 0)
+                {
+                    DestroySelf();
+                    UIText loseText = new UIText(300, 75, "Lose Text", Color.WHITE, 200, 200, 50, "You lose!");
+                    Engine.CurrentScene.AddActor(loseText);
+                }
+
+                DestroySelf();
+            }
+        }
+
+        //public override void Draw()
+        //{
+        //    base.Draw();
+        //    Collider.Draw();
+        //}
     }
 }

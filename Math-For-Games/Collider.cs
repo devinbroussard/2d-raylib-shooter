@@ -24,7 +24,8 @@ namespace Math_For_Games
 
         public ColliderType ColliderType
         {
-            get { return ColliderType; }
+            get { return _colliderType; }
+            set { _colliderType = value; }
         }
 
         public Collider(Actor owner, ColliderType colliderType)
@@ -36,9 +37,10 @@ namespace Math_For_Games
         public bool CheckCollision(Actor other)
         {
             if (other.Collider.ColliderType == ColliderType.CIRCLE)
-            {
                 return CheckCollisionCircle((CircleCollider)other.Collider);
-            }
+
+            else if (other.Collider.ColliderType == ColliderType.AABB)
+                return CheckCollisionAABB((AABBCollider)other.Collider);
 
             return false;
         }
@@ -46,7 +48,10 @@ namespace Math_For_Games
         public virtual bool CheckCollisionCircle(CircleCollider other)
         { return false; }
 
-        //public virtual bool CheckCollisionAABB(AABB other)
-        //{ return false; }
+        public virtual bool CheckCollisionAABB(AABBCollider other)
+        { return false; }
+
+        public virtual void Draw()
+        { }
     }
 }

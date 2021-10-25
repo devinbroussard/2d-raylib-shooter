@@ -12,8 +12,14 @@ namespace Math_For_Games
         private float _cooldownTime;
         private float _lastHitTime;
 
-        public Player(char icon, float x, float y, Color color, float speed, int health, float cooldownTime, float collisionRadius = 12, string name = "Player")
-            : base(icon, x, y, color, speed, health, name, collisionRadius)
+        public float LastHitTime
+        {
+            get { return _lastHitTime; }
+            set { _lastHitTime = value; }
+        }
+
+        public Player(char icon, float x, float y, Color color, float speed, int health, float cooldownTime, string name = "Player")
+            : base(icon, x, y, color, speed, health, name)
         {
             Speed = speed;
             _cooldownTime = cooldownTime;
@@ -43,13 +49,21 @@ namespace Math_For_Games
 
             if ((xDirectionForBullet != 0 || yDirectionForBullet != 0) && (_timeBetweenShots >=  _cooldownTime))
             {
-                _timeBetweenShots = deltaTime;
-                bullet = new Bullet('.', Position, Color.GOLD, 2000, "Player Bullet", xDirectionForBullet, yDirectionForBullet, this);
+                _timeBetweenShots = 0;
+                bullet = new Bullet('*', Position, Color.GOLD, 200, "Player Bullet", xDirectionForBullet, yDirectionForBullet, this);
+                //CircleCollider bulletCollider = new CircleCollider(20, bullet);
+                AABBCollider bulletCollider = new AABBCollider(20, 20, bullet);
+                bullet.Collider = bulletCollider;
                 Engine.CurrentScene.AddActor(bullet);
             }
 
             Velocity = moveDirection.Normalized * Speed * deltaTime;
             Position += Velocity;
+        }
+
+        public void TakeDamage()
+        {
+            Health--;
         }
 
         public override void OnCollision(Actor actor)
@@ -68,6 +82,12 @@ namespace Math_For_Games
                     Engine.CurrentScene.AddActor(loseText);
                 }
             }
+        }
+
+        public override void Draw()
+        {
+            base.Draw();
+            //Collider.Draw();
         }
     }
 }

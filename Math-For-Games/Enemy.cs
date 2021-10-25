@@ -10,21 +10,28 @@ namespace Math_For_Games
     {
         private Actor _actorToChase;
         private float _maxFov;
-        private static int _enemyCount;
+        public static int EnemyCount;
+        private float _timeBetweenShots;
+        private float _cooldownTime;
 
-        public Enemy(char icon, float x, float y, Color color, float speed, int health, Actor actor, float maxFov, Vector2 forward, float collisionRadius = 12, string name = "Enemy")
-            : base(icon, x, y, color, speed, health, name, collisionRadius)
+        public Enemy(char icon, float x, float y, Color color, float speed, int health, Actor actor, float maxFov, Vector2 forward, float cooldownTime, string name = "Enemy")
+            : base(icon, x, y, color, speed, health, name)
         {
             _actorToChase = actor;
             _maxFov = maxFov;
-            _enemyCount++;
+            EnemyCount++;
             Forward = forward;
             Tag = ActorTag.ENEMY;
+            _cooldownTime = cooldownTime;
         }
 
         public override void Update(float deltaTime)
         {
+            _timeBetweenShots += deltaTime;
+
             //The Enemy runs towards the player's position
+            if (_actorToChase == null)
+                return;
             Vector2 moveDirection = _actorToChase.Position - Position;
 
             //The enemy runs away from the player's position
@@ -34,13 +41,18 @@ namespace Math_For_Games
 
             if(IsTargetInSight())
                 Position += Velocity;
+            else if (_timeBetweenShots >= _cooldownTime)
+            {
+                Vector2 directionOfBullet = _actorToChase.Position - Position;
+
+                _timeBetweenShots = 0;
+                Bullet bullet = new Bullet('*', Position, Color.LIME, 200, "Enemy Bullet", directionOfBullet.Normalized.X, directionOfBullet.Normalized.Y, this);
+                AABBCollider bulletCollider = new AABBCollider(20, 20, bullet);
+                bullet.Collider = bulletCollider;
+                Engine.CurrentScene.AddActor(bullet);
+            }
 
             base.Update(deltaTime);
-        }
-
-        public override void Draw()
-        {
-            base.Draw();
         }
 
         public bool IsTargetInSight()
@@ -49,32 +61,22 @@ namespace Math_For_Games
             float distanceOfTarget = Vector2.GetDistance(_actorToChase.Position, Position);
 
             return (Math.Acos(Vector2.GetDotProduct(directionOfTarget, Forward)) * 180/Math.PI) < _maxFov
-                && distanceOfTarget < 500;
+                && distanceOfTarget < 200;
         }
 
-        private void TakeDamage()
+        public void TakeDamage()
         {
             Health--;
         }
 
         public override void OnCollision(Actor actor)
+        { }
+
+        public override void Draw()
         {
-            if (actor is Bullet)
-            {
-                if (Health > 0)
-                    TakeDamage();
-                if (Health == 0)
-                {
-                    _enemyCount--;
-                    if (_enemyCount == 0)
-                    {
-                        UIText winText = new UIText(300, 75, "Win Text", Color.WHITE, 200, 200, 50, "You won!");
-                        Engine.CurrentScene.AddActor(winText);
-                    }
-                    DestroySelf();
-                }
-                actor.DestroySelf();
-            }
+            base.Draw();
+            //if (Collider != null)
+                //Collider.Draw();
         }
     }
 }

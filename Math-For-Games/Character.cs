@@ -29,8 +29,8 @@ namespace Math_For_Games
             set { _health = value; }
         }
 
-        public Character(char icon, float x, float y, Color color, float speed, int health, string name = "Character", float collisionRadius = 0)
-             : base(icon, x, y, color, name, collisionRadius)
+        public Character(char icon, float x, float y, Color color, float speed, int health, string name = "Character")
+             : base(icon, x, y, color, name)
         {
             _health = health;
             _speed = speed;

@@ -59,16 +59,34 @@ namespace Math_For_Games
 
             //Create a window using rayLib
             Raylib.InitWindow(800, 450, "Math For Games");
-            Raylib.SetTargetFPS(0);
+            Raylib.SetTargetFPS(60);
 
             Scene scene = new Scene();
 
-            Player player = new Player('o', 800, 50, Color.SKYBLUE, 200, 3, 0.3f);
-            Enemy enemy1 = new Enemy('x', 150, 150, Color.MAROON, 150, 5, player, 340, new Vector2(-1, 0));
-            Enemy enemy2 = new Enemy('x', 350, 200, Color.MAROON, 150, 5, player, 340, new Vector2(1, 0));
-            Enemy enemy3 = new Enemy('x', 50, 250, Color.MAROON, 150, 5, player, 340, new Vector2(0, -1));
-            Enemy enemy4 = new Enemy('x', 450, 250, Color.MAROON, 150, 5, player, 340, new Vector2(-1, 0));
-            Enemy enemy5 = new Enemy('x', 450, 10, Color.MAROON, 150, 5, player, 340, new Vector2(-1, 0));
+            Player player = new Player('o', 800, 50, Color.SKYBLUE, 200, 3, 1);
+            Enemy enemy1 = new Enemy('B', 150, 150, Color.MAROON, 75, 3, player, 340, new Vector2(-1, 0), 1);
+            Enemy enemy2 = new Enemy('x', 350, 200, Color.MAROON, 75, 3, player, 340, new Vector2(1, 0), 1);
+            Enemy enemy3 = new Enemy('x', 50, 250, Color.MAROON, 75, 3, player, 340, new Vector2(0, -1), 1);
+            Enemy enemy4 = new Enemy('x', 450, 250, Color.MAROON, 75, 3, player, 340, new Vector2(-1, 0), 1);
+            Enemy enemy5 = new Enemy('x', 450, 10, Color.MAROON, 75, 3, player, 340, new Vector2(-1, 0), 1);
+
+            CircleCollider playerCollider = new CircleCollider(20, player);
+            //AABBCollider playerCollider = new AABBCollider(50, 50, player);
+            player.Collider = playerCollider;
+
+            AABBCollider enemy1Collider = new AABBCollider(50, 50, enemy1);
+            AABBCollider enemy2Collider = new AABBCollider(50, 50, enemy2);
+            AABBCollider enemy3Collider = new AABBCollider(50, 50, enemy3);
+            AABBCollider enemy4Collider = new AABBCollider(50, 50, enemy4);
+            AABBCollider enemy5Collider = new AABBCollider(50, 50, enemy5);
+
+            enemy1.Collider = enemy1Collider;
+            enemy2.Collider = enemy2Collider;
+            enemy3.Collider = enemy3Collider;
+            enemy4.Collider = enemy4Collider;
+            enemy5.Collider = enemy5Collider;
+
+
 
             HealthCounter playerHealthCounter = new HealthCounter(player.Position.X, player.Position.Y, "Player Health Tracker", Color.SKYBLUE, player);
             HealthCounter enemy1HealthCounter = new HealthCounter(enemy1.Position.X, enemy1.Position.Y, "Enemy1 Health Tracker", Color.MAROON, enemy1);

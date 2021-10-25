@@ -16,7 +16,8 @@ namespace Math_For_Games
     {
         PLAYER,
         ENEMY,
-        BULLET,
+        PLAYERBULLET,
+        ENEMYBULLET,
         GENERIC
     }
     class Actor
@@ -29,7 +30,6 @@ namespace Math_For_Games
         /// The forward facing direction of the actor
         /// </summary>
         private Vector2 _forward = new Vector2(1, 0);
-        private float _collisionRadius;
         private ActorTag _tag;
         private Collider _collider;
 
@@ -42,13 +42,8 @@ namespace Math_For_Games
 
         public ActorTag Tag
         {
-            get { return Tag; }
+            get { return _tag; }
             set { _tag = value; }
-        }
-        public float CollisionRadius
-        {
-            get { return _collisionRadius; }
-            set { _collisionRadius = value; }
         }
 
         public Vector2 Forward
@@ -76,17 +71,16 @@ namespace Math_For_Games
             get { return _icon; }
         }
 
-        public Actor(char icon, float x, float y, Color color, string name = "Actor", float collisionRadius = 0, ActorTag tag = ActorTag.GENERIC) :
-            this(icon, new Vector2 { X = x, Y = y }, color, name, collisionRadius, tag)
+        public Actor(char icon, float x, float y, Color color, string name = "Actor", ActorTag tag = ActorTag.GENERIC) :
+            this(icon, new Vector2 { X = x, Y = y }, color, name, tag)
         {
         }
 
-        public Actor(char icon, Vector2 position, Color color, string name = "Actor", float collisionRadius = 0, ActorTag tag = ActorTag.GENERIC)
+        public Actor(char icon, Vector2 position, Color color, string name = "Actor", ActorTag tag = ActorTag.GENERIC)
         {
             _icon = new Icon { Symbol = icon, Color = color};
             _position = position;
             _name = name;
-            _collisionRadius = collisionRadius;
             Tag = tag;
         }
 
@@ -104,9 +98,9 @@ namespace Math_For_Games
 
         public virtual void Draw() 
         {
-            Raylib.DrawText(Icon.Symbol.ToString(), (int)Position.X - 8, (int)Position.Y - 15, 30, Icon.Color);
-            //To see hitbox:
-            //Raylib.DrawCircleLines((int)Position.X, (int)Position.Y, _collisionRadius, Icon.Color);
+            Raylib.DrawText(Icon.Symbol.ToString(), (int)Position.X - 9, (int)Position.Y - 14, 30, Icon.Color);
+            //Circle hitbox vision
+            //Raylib.DrawCircleLines((int)Position.X, (int)Position.Y, 20, Color.WHITE);
 
         }
 
