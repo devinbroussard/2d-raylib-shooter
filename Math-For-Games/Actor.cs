@@ -12,6 +12,13 @@ namespace Math_For_Games
         public Color Color;
     }
 
+    public enum ActorTag
+    {
+        PLAYER,
+        ENEMY,
+        BULLET,
+        GENERIC
+    }
     class Actor
     {
         private Icon _icon;
@@ -23,7 +30,21 @@ namespace Math_For_Games
         /// </summary>
         private Vector2 _forward = new Vector2(1, 0);
         private float _collisionRadius;
+        private ActorTag _tag;
+        private Collider _collider;
 
+        //The collider attached to this actor
+        public Collider Collider
+        {
+            get { return _collider; }
+            set { _collider = value; }
+        }
+
+        public ActorTag Tag
+        {
+            get { return Tag; }
+            set { _tag = value; }
+        }
         public float CollisionRadius
         {
             get { return _collisionRadius; }
@@ -55,17 +76,18 @@ namespace Math_For_Games
             get { return _icon; }
         }
 
-        public Actor(char icon, float x, float y, Color color, string name = "Actor", float collisionRadius = 0) :
-            this(icon, new Vector2 { X = x, Y = y }, color, name, collisionRadius)
+        public Actor(char icon, float x, float y, Color color, string name = "Actor", float collisionRadius = 0, ActorTag tag = ActorTag.GENERIC) :
+            this(icon, new Vector2 { X = x, Y = y }, color, name, collisionRadius, tag)
         {
         }
 
-        public Actor(char icon, Vector2 position, Color color, string name = "Actor", float collisionRadius = 0)
+        public Actor(char icon, Vector2 position, Color color, string name = "Actor", float collisionRadius = 0, ActorTag tag = ActorTag.GENERIC)
         {
             _icon = new Icon { Symbol = icon, Color = color};
             _position = position;
             _name = name;
             _collisionRadius = collisionRadius;
+            Tag = tag;
         }
 
         public Actor()
@@ -82,7 +104,9 @@ namespace Math_For_Games
 
         public virtual void Draw() 
         {
-            Raylib.DrawText(Icon.Symbol.ToString(), (int)Position.X - 15, (int)Position.Y - 15, 30, Icon.Color);
+            Raylib.DrawText(Icon.Symbol.ToString(), (int)Position.X - 8, (int)Position.Y - 15, 30, Icon.Color);
+            //To see hitbox:
+            //Raylib.DrawCircleLines((int)Position.X, (int)Position.Y, _collisionRadius, Icon.Color);
 
         }
 
@@ -106,10 +130,11 @@ namespace Math_For_Games
         /// <returns>True if a collision has occured</returns>
         public virtual bool CheckForCollision(Actor other)
         {
-            float combinedRadii = other.CollisionRadius + CollisionRadius;
-            float distance = Vector2.GetDistance(Position, other.Position);
+            //Return false if either actor doesn't have a collider
+            if (Collider == null || other.Collider == null)
+                return false;
 
-            return distance <= combinedRadii;
+            return Collider.CheckCollision(other);
         }
     }
 }

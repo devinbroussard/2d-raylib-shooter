@@ -12,11 +12,12 @@ namespace Math_For_Games
         private float _cooldownTime;
         private float _lastHitTime;
 
-        public Player(char icon, float x, float y, Color color, float speed, int health, float cooldownTime, float collisionRadius = 20, string name = "Player")
+        public Player(char icon, float x, float y, Color color, float speed, int health, float cooldownTime, float collisionRadius = 12, string name = "Player")
             : base(icon, x, y, color, speed, health, name, collisionRadius)
         {
             Speed = speed;
             _cooldownTime = cooldownTime;
+            Tag = ActorTag.PLAYER;
         }
 
         public override void Update(float deltaTime)
@@ -43,7 +44,7 @@ namespace Math_For_Games
             if ((xDirectionForBullet != 0 || yDirectionForBullet != 0) && (_timeBetweenShots >=  _cooldownTime))
             {
                 _timeBetweenShots = deltaTime;
-                bullet = new Bullet('.', Position, Color.GOLD, 2000, "Player Bullet", xDirectionForBullet, yDirectionForBullet);
+                bullet = new Bullet('.', Position, Color.GOLD, 2000, "Player Bullet", xDirectionForBullet, yDirectionForBullet, this);
                 Engine.CurrentScene.AddActor(bullet);
             }
 
@@ -53,7 +54,7 @@ namespace Math_For_Games
 
         public override void OnCollision(Actor actor)
         {
-            if (actor is Enemy)
+            if (actor.Tag == ActorTag.ENEMY)
             {
                 if (Health > 0 && _lastHitTime > 1)
                 {

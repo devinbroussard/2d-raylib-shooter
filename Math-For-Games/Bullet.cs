@@ -17,6 +17,12 @@ namespace Math_For_Games
         /// </summary>
         private float _timeAlive;
         private Vector2 _moveDirection;
+        private Actor _owner;
+
+        public Actor Owner
+        {
+            get { return _owner; }
+        }
 
         public Vector2 MoveDirection
         {
@@ -28,12 +34,14 @@ namespace Math_For_Games
             set { value = _moveDirection; }
         }
 
-        public Bullet(char icon, Vector2 position, Color color, float speed, string name, int xDirection, int yDirection)
+        public Bullet(char icon, Vector2 position, Color color, float speed, string name, int xDirection, int yDirection, Actor owner)
             : base(icon, position, color, name)
         {
             _speed = speed;
             _xDirection = xDirection;
             _yDirection = yDirection;
+            _owner = owner;
+            Tag = ActorTag.BULLET;
         }
 
         
