@@ -14,6 +14,7 @@ namespace Math_For_Games
         public int Height;
         public int FontSize;
         public Font Font;
+        public Color FontColor;
 
         /// <summary>
         /// Sets the starting values for the text box
@@ -32,6 +33,7 @@ namespace Math_For_Games
             Text = text;
             Width = width;
             Height = height;
+            FontColor = Color;
             FontSize = fontSize;
             Font = Raylib.LoadFont("resources/fonts/alagard.png");
         }
@@ -52,7 +54,6 @@ namespace Math_For_Games
             Rectangle textBox = new Rectangle(Position.X, Position.Y, Width, Height);
 
             //Raylib's text box
-            Raylib.DrawTextRec(Font, Text, textBox, FontSize, 1, true, Icon.Color);
-        }
+            Raylib.DrawTextRec(Font, Text, textBox, FontSize, 1, true, FontColor);
     }
 }

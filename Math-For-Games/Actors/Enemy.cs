@@ -14,8 +14,8 @@ namespace Math_For_Games
         private float _timeBetweenShots;
         private float _cooldownTime;
 
-        public Enemy(char icon, float x, float y, Color color, float speed, int health, Actor actor, float maxFov, Vector2 forward, float cooldownTime, string name = "Enemy")
-            : base(icon, x, y, color, speed, health, name)
+        public Enemy(char icon, float x, float y, float speed, int health, Actor actor, float maxFov, Vector2 forward, float cooldownTime, string name = "Enemy", string path = "")
+            : base(icon, x, y, speed, health, name, path)
         {
             _actorToChase = actor;
             _maxFov = maxFov;
@@ -41,7 +41,11 @@ namespace Math_For_Games
 
             if(IsTargetInSight())
                 Position += Velocity;
-            else if (_timeBetweenShots >= _cooldownTime)
+            else
+            {
+                Position += Velocity * 0.2f;
+            }
+            if (_timeBetweenShots >= _cooldownTime)
             {
                 Vector2 directionOfBullet = _actorToChase.Position - Position;
 

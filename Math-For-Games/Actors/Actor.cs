@@ -6,12 +6,6 @@ using Raylib_cs;
 
 namespace Math_For_Games
 {
-    struct Icon
-    {
-        public char Symbol;
-        public Color Color;
-    }
-
     public enum ActorTag
     {
         PLAYER,
@@ -21,7 +15,6 @@ namespace Math_For_Games
     }
     class Actor
     {
-        private Icon _icon;
         private string _name;
         private bool _started;
         /// <summary>
@@ -31,6 +24,7 @@ namespace Math_For_Games
         private ActorTag _tag;
         private Collider _collider;
         private Matrix3 _transform = Matrix3.Identity;
+        private Sprite _sprite;
 
         //The collider attached to this actor
         public Collider Collider
@@ -49,6 +43,12 @@ namespace Math_For_Games
         {
             get { return _forward; }
             set { _forward = value; }
+        }
+
+        public Sprite Sprite
+        {
+            get { return _sprite; }
+            set { _sprite = value; }
         }
         
         /// <summary>
@@ -69,22 +69,20 @@ namespace Math_For_Games
             }
         }
 
-        public Icon Icon
-        {
-            get { return _icon; }
-        }
-
-        public Actor(char icon, float x, float y, Color color, string name = "Actor", ActorTag tag = ActorTag.GENERIC) :
-            this(icon, new Vector2 { X = x, Y = y }, color, name, tag)
+        public Actor(float x, float y, string name = "Actor", string path = "", ActorTag tag = ActorTag.GENERIC) :
+            this(new Vector2 { X = x, Y = y }, name, path, tag)
         {
         }
 
-        public Actor(char icon, Vector2 position, Color color, string name = "Actor", ActorTag tag = ActorTag.GENERIC)
+        public Actor(Vector2 position, string name = "Actor", string path = "", ActorTag tag = ActorTag.GENERIC )
         {
-            _icon = new Icon { Symbol = icon, Color = color};
+          
             Position = position;
             _name = name;
             Tag = tag;
+
+            if (path != "")
+                _sprite = new Sprite(path);
         }
 
         public Actor()
@@ -101,9 +99,8 @@ namespace Math_For_Games
 
         public virtual void Draw() 
         {
-            Raylib.DrawText(Icon.Symbol.ToString(), (int)Position.X - 9, (int)Position.Y - 14, 30, Icon.Color);
-            //Circle hitbox vision
-            //Raylib.DrawCircleLines((int)Position.X, (int)Position.Y, 20, Color.WHITE);
+            if (_sprite != null)
+                _sprite.Draw(_transform);
 
         }
 

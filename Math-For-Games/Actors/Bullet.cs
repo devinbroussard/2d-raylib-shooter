@@ -34,8 +34,8 @@ namespace Math_For_Games
             set { value = _moveDirection; }
         }
 
-        public Bullet(char icon, Vector2 position, Color color, float speed, string name, float xDirection, float yDirection, Actor owner)
-            : base(icon, position, color, name)
+        public Bullet(Vector2 position, Color color, float speed, string name, float xDirection, float yDirection, Actor owner, string path)
+            : base(position, name, path)
         {
             _speed = speed;
             _xDirection = xDirection;
