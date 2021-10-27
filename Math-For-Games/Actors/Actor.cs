@@ -24,6 +24,9 @@ namespace Math_For_Games
         private ActorTag _tag;
         private Collider _collider;
         private Matrix3 _transform = Matrix3.Identity;
+        private Matrix3 _translation = Matrix3.Identity;
+        private Matrix3 _rotation = Matrix3.Identity;
+        private Matrix3 _scale = Matrix3.Identity;
         private Sprite _sprite;
 
         //The collider attached to this actor
@@ -95,13 +98,14 @@ namespace Math_For_Games
 
         public virtual void Update(float deltaTime) 
         {
+            _transform = _translation * _rotation * _scale;
         }
 
         public virtual void Draw() 
         {
+            //Raylib.DrawCircleLines((int)Position.X, (int)Position.Y, 20, Color.WHITE);
             if (_sprite != null)
                 _sprite.Draw(_transform);
-
         }
 
         public virtual void End()
@@ -141,5 +145,14 @@ namespace Math_For_Games
             _transform.M00 = x;
             _transform.M11 = y;
         }
+
+        public void Rotate(float radians)
+        {
+
+        }
+
+        public void Scale(float x, float y)
+        { }
+
     }
 }

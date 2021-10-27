@@ -28,18 +28,18 @@ namespace Math_For_Games
         /// <param name="text">The tex that will be displayed</param>
         public UIText(float x, float y, string name, Color color, int width,
             int height, int fontSize, string text = "")
-            : base('\0', x, y, color, name)
+            : base(x, y, name)
         {
             Text = text;
             Width = width;
             Height = height;
-            FontColor = Color;
+            FontColor = color;
             FontSize = fontSize;
             Font = Raylib.LoadFont("resources/fonts/alagard.png");
         }
 
         public UIText(float x, float y, string name, Color color)
-            : base('\0', x, y, color, name)
+            : base(x, y, name)
         {
             Text = "";
             Width = 50;
@@ -55,5 +55,6 @@ namespace Math_For_Games
 
             //Raylib's text box
             Raylib.DrawTextRec(Font, Text, textBox, FontSize, 1, true, FontColor);
+        }
     }
 }

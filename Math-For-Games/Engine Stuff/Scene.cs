@@ -22,13 +22,9 @@ namespace Math_For_Games
         }
 
         /// <summary>
-        /// Calls start for all actors in the actors array
         /// </summary>
         public virtual void Start()
-        {
-            for (int i = 0; i < _actors.Length; i++)
-                _actors[i].Start();
-        }
+        { }
 
         /// <summary>
         /// Calls update for every actor in the scene.

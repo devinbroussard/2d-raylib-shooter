@@ -14,8 +14,8 @@ namespace Math_For_Games
         private float _timeBetweenShots;
         private float _cooldownTime;
 
-        public Enemy(char icon, float x, float y, float speed, int health, Actor actor, float maxFov, Vector2 forward, float cooldownTime, string name = "Enemy", string path = "")
-            : base(icon, x, y, speed, health, name, path)
+        public Enemy(float x, float y, float speed, int health, Actor actor, float maxFov, Vector2 forward, float cooldownTime, string name = "Enemy", string path = "enemy.png")
+            : base(x, y, speed, health, name, path)
         {
             _actorToChase = actor;
             _maxFov = maxFov;
@@ -41,17 +41,19 @@ namespace Math_For_Games
 
             if(IsTargetInSight())
                 Position += Velocity;
-            else
+            //else
+            //{
+            //    Position += Velocity * 0.2f;
+            //}
+            else if (_timeBetweenShots >= 1)
             {
-                Position += Velocity * 0.2f;
-            }
-            if (_timeBetweenShots >= _cooldownTime)
-            {
-                Vector2 directionOfBullet = _actorToChase.Position - Position;
+                Vector2 directionOfBullet = (_actorToChase.Position - Position).Normalized;
 
                 _timeBetweenShots = 0;
-                Bullet bullet = new Bullet('*', Position, Color.LIME, 200, "Enemy Bullet", directionOfBullet.Normalized.X, directionOfBullet.Normalized.Y, this);
-                AABBCollider bulletCollider = new AABBCollider(20, 20, bullet);
+                Bullet bullet = new Bullet(Position, 200, "Enemy Bullet", directionOfBullet.X, directionOfBullet.Y, this);
+                bullet.SetScale(30, 30);
+                //CircleCollider bulletCollider = new CircleCollider(20, bullet);
+                AABBCollider bulletCollider = new AABBCollider(30, 30, bullet);
                 bullet.Collider = bulletCollider;
                 Engine.CurrentScene.AddActor(bullet);
             }

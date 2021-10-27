@@ -32,5 +32,51 @@ namespace Math_Library
                     0, 0, 1);
                  }
         }
+
+        /// <summary>
+        /// Creates a new matrix that has been rotated by the given value in radians
+        /// </summary>
+        /// <param name="radians">The result of the rotation</param>
+        public static Matrix3 CreateRotation(float radians)
+        {
+
+        }
+        
+        /// <summary>
+        /// Creates a new matrix that has been translated by the given value
+        /// </summary>
+        /// <param name="translation">The position of the new matrix</param>
+        public static Matrix3 CreateTranslation(float x, float y)
+        {
+
+        }
+
+        /// <summary>
+        /// Creates a new matrix that has been scaled by the given value
+        /// </summary>
+        /// <param name="scale">The result of the scale</param>
+        public static Matrix3 CreateScale(float x, float y)
+        {
+
+        }
+
+        public static Matrix3 operator +(Matrix3 lhs, Matrix3 rhs)
+        {
+
+        }
+
+        public static Matrix3 operator -(Matrix3 lhs, Matrix3 rhs)
+        {
+
+        }
+
+        public static Matrix3 operator *(Matrix3 lhs, Matrix3 rhs)
+        {
+            Matrix3 result = new Matrix3(
+                ((lhs.M00 * rhs.M00) + (lhs.M01 * rhs.M10) + (lhs.M02 * rhs.M20)),
+                ((lhs.M00 * rhs.M01) + (lhs.M01 * rhs.M11) + (lhs.M02 * rhs.M21)),
+                ((lhs.M00 * rhs.M02) + (lhs.M01 * rhs.M12) + (lhs.M02 * rhs.M22)),
+                ((lhs.M10 * rhs.M00) + (lhs.M11 * rhs.M10) + (lhs.M12 * rhs.M20)),
+        }
     }
 }

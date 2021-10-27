@@ -34,7 +34,7 @@ namespace Math_For_Games
             set { value = _moveDirection; }
         }
 
-        public Bullet(Vector2 position, Color color, float speed, string name, float xDirection, float yDirection, Actor owner, string path)
+        public Bullet(Vector2 position, float speed, string name, float xDirection, float yDirection, Actor owner, string path = "bullet.png")
             : base(position, name, path)
         {
             _speed = speed;
@@ -63,7 +63,7 @@ namespace Math_For_Games
 
             _velocity = MoveDirection * _speed * deltaTime;
 
-            Position += _velocity;
+           Position += _velocity;
         }
 
         /// <summary>
@@ -114,7 +114,7 @@ namespace Math_For_Games
                 }
                 if (player.Health <= 0)
                 {
-                    DestroySelf();
+                    actor.DestroySelf();
                     UIText loseText = new UIText(300, 75, "Lose Text", Color.WHITE, 200, 200, 50, "You lose!");
                     Engine.CurrentScene.AddActor(loseText);
                 }
