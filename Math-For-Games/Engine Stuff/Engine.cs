@@ -63,8 +63,8 @@ namespace Math_For_Games
 
             Scene scene = new Scene();
 
-            Player player = new Player('o', 800, 50, Color.SKYBLUE, 200, 3, 1);
-            Enemy enemy1 = new Enemy('B', 150, 150, Color.MAROON, 75, 3, player, 340, new Vector2(-1, 0), 1);
+            Player player = new Player('o', 800, 50, Color.SKYBLUE, 200, 3, 0.5f);
+            Enemy enemy1 = new Enemy('x', 150, 150, Color.MAROON, 75, 3, player, 340, new Vector2(-1, 0), 1);
             Enemy enemy2 = new Enemy('x', 350, 200, Color.MAROON, 75, 3, player, 340, new Vector2(1, 0), 1);
             Enemy enemy3 = new Enemy('x', 50, 250, Color.MAROON, 75, 3, player, 340, new Vector2(0, -1), 1);
             Enemy enemy4 = new Enemy('x', 450, 250, Color.MAROON, 75, 3, player, 340, new Vector2(-1, 0), 1);

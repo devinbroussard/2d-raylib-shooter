@@ -16,15 +16,13 @@ namespace Math_For_Games
     {
         PLAYER,
         ENEMY,
-        PLAYERBULLET,
-        ENEMYBULLET,
+        BULLET,
         GENERIC
     }
     class Actor
     {
         private Icon _icon;
         private string _name;
-        private Vector2 _position;
         private bool _started;
         /// <summary>
         /// The forward facing direction of the actor
@@ -32,6 +30,7 @@ namespace Math_For_Games
         private Vector2 _forward = new Vector2(1, 0);
         private ActorTag _tag;
         private Collider _collider;
+        private Matrix3 _transform = Matrix3.Identity;
 
         //The collider attached to this actor
         public Collider Collider
@@ -62,8 +61,12 @@ namespace Math_For_Games
 
         public Vector2 Position
         {
-            get { return _position; }
-            set { _position = value; }
+            get { return new Vector2(_transform.M02, _transform.M12); }
+            set 
+            {
+                _transform.M02 = value.X;
+                _transform.M12 = value.Y;
+            }
         }
 
         public Icon Icon
@@ -79,7 +82,7 @@ namespace Math_For_Games
         public Actor(char icon, Vector2 position, Color color, string name = "Actor", ActorTag tag = ActorTag.GENERIC)
         {
             _icon = new Icon { Symbol = icon, Color = color};
-            _position = position;
+            Position = position;
             _name = name;
             Tag = tag;
         }
@@ -129,6 +132,17 @@ namespace Math_For_Games
                 return false;
 
             return Collider.CheckCollision(other);
+        }
+
+        /// <summary>
+        /// Changes the scale of the actor
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        public void SetScale(float x, float y)
+        {
+            _transform.M00 = x;
+            _transform.M11 = y;
         }
     }
 }

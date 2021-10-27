@@ -121,6 +121,11 @@ namespace Math_For_Games
 
                 DestroySelf();
             }
+            else if (actor.Tag == ActorTag.BULLET && Owner.Tag != actor.Tag)
+            {
+                DestroySelf();
+                actor.DestroySelf();
+            }
         }
 
         //public override void Draw()
