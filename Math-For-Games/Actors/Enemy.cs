@@ -14,7 +14,7 @@ namespace Math_For_Games
         private float _timeBetweenShots;
         private float _cooldownTime;
 
-        public Enemy(float x, float y, float speed, int health, Actor actor, float maxFov, Vector2 forward, float cooldownTime, string name = "Enemy", string path = "enemy.png")
+        public Enemy(float x, float y, float speed, int health, Actor actor, float maxFov, Vector2 forward, float cooldownTime, string name = "Enemy", string path = "hungry-man.png")
             : base(x, y, speed, health, name, path)
         {
             _actorToChase = actor;

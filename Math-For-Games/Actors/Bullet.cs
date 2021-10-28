@@ -34,7 +34,7 @@ namespace Math_For_Games
             set { value = _moveDirection; }
         }
 
-        public Bullet(Vector2 position, float speed, string name, float xDirection, float yDirection, Actor owner, string path = "bullet.png")
+        public Bullet(Vector2 position, float speed, string name, float xDirection, float yDirection, Actor owner, string path = "gun-bullet.png")
             : base(position, name, path)
         {
             _speed = speed;
