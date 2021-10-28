@@ -64,18 +64,18 @@ namespace Math_For_Games
             Scene scene = new Scene();
 
             Player player = new Player(800, 50, 200, 3, 0.5f);
-            player.SetScale(30, 30);
+            player.Scale(50, 50);
 
             Enemy enemy1 = new Enemy(150, 150, 75, 3, player, 340, new Vector2(-1, 0), 1);
-            enemy1.SetScale(30, 30);
+            enemy1.Scale(50, 50);
             Enemy enemy2 = new Enemy(350, 200, 75, 3, player, 340, new Vector2(1, 0), 1);
-            enemy2.SetScale(30, 30);
+            enemy2.Scale(50, 50);
             Enemy enemy3 = new Enemy(50, 250, 75, 3, player, 340, new Vector2(0, -1), 1);
-            enemy3.SetScale(30, 30);
+            enemy3.Scale(50, 50);
             Enemy enemy4 = new Enemy(450, 250, 75, 3, player, 340, new Vector2(-1, 0), 1);
-            enemy4.SetScale(30, 30);
+            enemy4.Scale(50, 50);
             Enemy enemy5 = new Enemy(450, 10, 75, 3, player, 340, new Vector2(-1, 0), 1);
-            enemy5.SetScale(30, 30);
+            enemy5.Scale(50, 50);
 
 
 
@@ -141,8 +141,10 @@ namespace Math_For_Games
         /// </summary>
         private void Draw()
         {
+            Sprite background = new Sprite("background.png");
+
             Raylib.BeginDrawing();
-            Raylib.ClearBackground(Color.BLACK);
+            background.Draw(new Matrix3(0, 0, 0, 0, 0, 0, 0, 00, 0));
 
             //Adds all actor icons to buffer
             _scenes[_currentSceneIndex].Draw();

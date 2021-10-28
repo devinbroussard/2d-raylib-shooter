@@ -49,18 +49,16 @@ namespace Math_For_Games
             {
                 _timeBetweenShots = 0;
                 Bullet bullet = new Bullet(Position, 200, "Player Bullet", xDirectionForBullet, yDirectionForBullet, this, "cookie.png");
-                bullet.SetScale(30, 30);
+                bullet.Scale(20, 20);
                 //CircleCollider bulletCollider = new CircleCollider(20, bullet);
                 AABBCollider bulletCollider = new AABBCollider(30, 30, bullet);
                 bullet.Collider = bulletCollider;
                 Engine.CurrentScene.AddActor(bullet);
             }
 
-            if (yDirection != 0)
-            {
-                Velocity = moveDirection.Normalized * Speed * deltaTime;
-                Position += Velocity;
-            }
+
+            Velocity = moveDirection.Normalized * Speed * deltaTime;
+            Position += Velocity;
         }
 
         public void TakeDamage()

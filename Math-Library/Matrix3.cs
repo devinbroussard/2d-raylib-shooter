@@ -39,7 +39,11 @@ namespace Math_Library
         /// <param name="radians">The result of the rotation</param>
         public static Matrix3 CreateRotation(float radians)
         {
-
+            return new Matrix3(
+                radians, -radians, 0,
+                radians, radians, 0,
+                0, 0, 1
+                );
         }
 
         /// <summary>
@@ -48,7 +52,11 @@ namespace Math_Library
         /// <param name="translation">The position of the new matrix</param>
         public static Matrix3 CreateTranslation(float x, float y)
         {
-
+            return new Matrix3(
+                1, 0, x,
+                0, 1, y,
+                0, 0, 1
+                );
         }
 
         /// <summary>
@@ -57,17 +65,29 @@ namespace Math_Library
         /// <param name="scale">The result of the scale</param>
         public static Matrix3 CreateScale(float x, float y)
         {
-
+            return new Matrix3(
+                x, 0, 0,
+                0, y, 0,
+                0, 0, 1
+                );
         }
 
         public static Matrix3 operator +(Matrix3 lhs, Matrix3 rhs)
         {
-
+            return new Matrix3(
+                (lhs.M00 + rhs.M00), (lhs.M01 + rhs.M01), (lhs.M02 + rhs.M02),
+                (lhs.M10 + rhs.M10), (lhs.M11 + rhs.M11), (lhs.M12 + rhs.M12),
+                (lhs.M20 + rhs.M20), (lhs.M21 + rhs.M21), (lhs.M22 + rhs.M22)
+                );
         }
 
         public static Matrix3 operator -(Matrix3 lhs, Matrix3 rhs)
         {
-
+            return new Matrix3(
+                (lhs.M00 - rhs.M00), (lhs.M01 - rhs.M01), (lhs.M02 - rhs.M02),
+                (lhs.M10 - rhs.M10), (lhs.M11 - rhs.M11), (lhs.M12 - rhs.M12),
+                (lhs.M20 - rhs.M20), (lhs.M21 - rhs.M21), (lhs.M22 - rhs.M22)
+                );
         }
 
         public static Matrix3 operator *(Matrix3 lhs, Matrix3 rhs)
@@ -81,8 +101,8 @@ namespace Math_Library
                 ((lhs.M10 * rhs.M02) + (lhs.M11 * rhs.M12) + (lhs.M12 * rhs.M22)),
                 ((lhs.M20 * rhs.M00) + (lhs.M21 * rhs.M10) + (lhs.M22 * rhs.M20)),
                 ((lhs.M20 * rhs.M01) + (lhs.M21 * rhs.M11) + (lhs.M22 * rhs.M21)),
-                ((lhs.M20 * rhs.M02) + (lhs.M21 * rhs.M12) + (lhs.M22 * rhs.M22)))
-                ;
+                ((lhs.M20 * rhs.M02) + (lhs.M21 * rhs.M12) + (lhs.M22 * rhs.M22))
+                );
         }
 
     //    public Matrix3(

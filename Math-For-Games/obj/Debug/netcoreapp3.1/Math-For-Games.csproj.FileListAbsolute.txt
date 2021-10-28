@@ -87,11 +87,9 @@ C:\Users\Devin\Desktop\Dev\Raylib-Shooter\Math-For-Games\bin\Debug\netcoreapp3.1
 C:\Users\Devin\Desktop\Dev\Raylib-Shooter\Math-For-Games\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\raylib.dll
 C:\Users\Devin\Desktop\Dev\Raylib-Shooter\Math-For-Games\bin\Debug\netcoreapp3.1\Math-Library.dll
 C:\Users\Devin\Desktop\Dev\Raylib-Shooter\Math-For-Games\bin\Debug\netcoreapp3.1\Math-Library.pdb
-C:\Users\Devin\Desktop\Dev\Raylib-Shooter\Math-For-Games\obj\Debug\netcoreapp3.1\Math-For-Games.csprojAssemblyReference.cache
 C:\Users\Devin\Desktop\Dev\Raylib-Shooter\Math-For-Games\obj\Debug\netcoreapp3.1\Math-For-Games.AssemblyInfoInputs.cache
 C:\Users\Devin\Desktop\Dev\Raylib-Shooter\Math-For-Games\obj\Debug\netcoreapp3.1\Math-For-Games.AssemblyInfo.cs
 C:\Users\Devin\Desktop\Dev\Raylib-Shooter\Math-For-Games\obj\Debug\netcoreapp3.1\Math-For-Games.csproj.CoreCompileInputs.cache
-C:\Users\Devin\Desktop\Dev\Raylib-Shooter\Math-For-Games\obj\Debug\netcoreapp3.1\Math-For-Games.csproj.CopyComplete
 C:\Users\Devin\Desktop\Dev\Raylib-Shooter\Math-For-Games\obj\Debug\netcoreapp3.1\Math-For-Games.dll
 C:\Users\Devin\Desktop\Dev\Raylib-Shooter\Math-For-Games\obj\Debug\netcoreapp3.1\Math-For-Games.pdb
 C:\Users\Devin\Desktop\Dev\Raylib-Shooter\Math-For-Games\obj\Debug\netcoreapp3.1\Math-For-Games.genruntimeconfig.cache
@@ -100,3 +98,8 @@ C:\Users\s218014\source\repos\Raylib-Shooter\Math-For-Games\bin\Debug\netcoreapp
 C:\Users\s218014\source\repos\Raylib-Shooter\Math-For-Games\bin\Debug\netcoreapp3.1\player.png
 C:\Users\devin\Desktop\Dev\Raylib-Shooter\Math-For-Games\obj\Debug\netcoreapp3.1\Math-For-Games.csproj.AssemblyReference.cache
 C:\Users\devin\Desktop\Dev\Raylib-Shooter\Math-For-Games\obj\Debug\netcoreapp3.1\Math-For-Games.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\devin\Desktop\Dev\Raylib-Shooter\Math-For-Games\bin\Debug\netcoreapp3.1\background.png
+C:\Users\devin\Desktop\Dev\Raylib-Shooter\Math-For-Games\bin\Debug\netcoreapp3.1\cookie.png
+C:\Users\devin\Desktop\Dev\Raylib-Shooter\Math-For-Games\bin\Debug\netcoreapp3.1\gun-bullet.png
+C:\Users\devin\Desktop\Dev\Raylib-Shooter\Math-For-Games\bin\Debug\netcoreapp3.1\hungry-man.png
+C:\Users\devin\Desktop\Dev\Raylib-Shooter\Math-For-Games\bin\Debug\netcoreapp3.1\lodis.png

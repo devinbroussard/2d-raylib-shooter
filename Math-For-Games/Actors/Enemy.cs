@@ -51,7 +51,7 @@ namespace Math_For_Games
 
                 _timeBetweenShots = 0;
                 Bullet bullet = new Bullet(Position, 200, "Enemy Bullet", directionOfBullet.X, directionOfBullet.Y, this);
-                bullet.SetScale(30, 30);
+                bullet.Scale(30,30);
                 //CircleCollider bulletCollider = new CircleCollider(20, bullet);
                 AABBCollider bulletCollider = new AABBCollider(30, 30, bullet);
                 bullet.Collider = bulletCollider;
