@@ -41,7 +41,7 @@ namespace Math_Library
         {
 
         }
-        
+
         /// <summary>
         /// Creates a new matrix that has been translated by the given value
         /// </summary>
