@@ -33,12 +33,12 @@ namespace Math_For_Games
             _timeBetweenShots += deltaTime;
 
             //Gets the xDirection and yDirection of the players input
-            int xDireciton = -Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_A))
+            int xDirection = -Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_A))
                 + Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_D));
             int yDirection = -Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_W))
                 + Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_S));
 
-            Vector2 moveDirection = new Vector2(xDireciton, yDirection);
+            Vector2 moveDirection = new Vector2(xDirection, yDirection);
 
             int xDirectionForBullet = -Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_LEFT))
            + Convert.ToInt32(Raylib.IsKeyDown(KeyboardKey.KEY_RIGHT));
@@ -49,16 +49,28 @@ namespace Math_For_Games
             {
                 _timeBetweenShots = 0;
                 Bullet bullet = new Bullet(Position, 200, "Player Bullet", xDirectionForBullet, yDirectionForBullet, this, "cookie.png");
-                bullet.Scale(20, 20);
+                bullet.SetScale(50, 50);
                 //CircleCollider bulletCollider = new CircleCollider(20, bullet);
                 AABBCollider bulletCollider = new AABBCollider(30, 30, bullet);
                 bullet.Collider = bulletCollider;
                 Engine.CurrentScene.AddActor(bullet);
             }
 
+            if (xDirection == -1)
+                Forward = new Vector2(-1, 0);
+            else if (xDirection == 1)
+                Forward = new Vector2(1, 0);
 
+            if (Forward.X == -1)
+                SetScale(-80, 80);
+            else if (Forward.X == 1)
+                SetScale(80, 80);
+            
             Velocity = moveDirection.Normalized * Speed * deltaTime;
-            Position += Velocity;
+
+            base.Translate(Velocity.X, Velocity.Y);
+
+            base.Update(deltaTime);
         }
 
         public void TakeDamage()

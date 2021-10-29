@@ -40,8 +40,8 @@ namespace Math_Library
         public static Matrix3 CreateRotation(float radians)
         {
             return new Matrix3(
-                radians, -radians, 0,
-                radians, radians, 0,
+                (float)Math.Cos(radians), -(float)Math.Sin(radians), 0,
+                (float)Math.Sin(radians), (float)Math.Cos(radians), 0,
                 0, 0, 1
                 );
         }

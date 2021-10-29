@@ -19,15 +19,16 @@ namespace Math_For_Games
 
         public override void Update(float deltaTime)
         {
-            base.Update(deltaTime);
 
             if (_character.Health >= 0)
             {
-                Position = new Vector2(_character.Position.X - 10, _character.Position.Y - 25);
+                base.SetTranslation(_character.Position.X - 10, _character.Position.Y - 70);
                 Text = _character.Health.ToString();
             }
             else
                 Engine.CurrentScene.RemoveUIElement(this);
+
+            base.Update(deltaTime);
         }
     }
 }

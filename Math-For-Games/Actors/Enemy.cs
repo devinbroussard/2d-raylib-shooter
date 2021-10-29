@@ -27,38 +27,38 @@ namespace Math_For_Games
 
         public override void Update(float deltaTime)
         {
-            _timeBetweenShots += deltaTime;
+            //_timeBetweenShots += deltaTime;
 
-            //The Enemy runs towards the player's position
-            if (_actorToChase == null)
-                return;
-            Vector2 moveDirection = _actorToChase.Position - Position;
+            ////The Enemy runs towards the player's position
+            //if (_actorToChase == null)
+            //    return;
+            //Vector2 moveDirection = _actorToChase.Position - Position;
 
-            //The enemy runs away from the player's position
-            //Vector2 moveDirection = Position - _actorToChase.Position;
+            ////The enemy runs away from the player's position
+            ////Vector2 moveDirection = Position - _actorToChase.Position;
 
-            Velocity = moveDirection.Normalized * Speed * deltaTime;
+            //Velocity = moveDirection.Normalized * Speed * deltaTime;
 
-            if(IsTargetInSight())
-                Position += Velocity;
+            //if (IsTargetInSight())
+            //    Translate(Velocity.X, Velocity.Y);
             //else
             //{
-            //    Position += Velocity * 0.2f;
+            //    base.Translate(Velocity.X * 0.2f, Velocity.Y * 0.2f);
             //}
-            else if (_timeBetweenShots >= 1)
-            {
-                Vector2 directionOfBullet = (_actorToChase.Position - Position).Normalized;
+            //if (_timeBetweenShots >= 1 && !IsTargetInSight())
+            //{
+            //    Vector2 directionOfBullet = (_actorToChase.Position - Position).Normalized;
 
-                _timeBetweenShots = 0;
-                Bullet bullet = new Bullet(Position, 200, "Enemy Bullet", directionOfBullet.X, directionOfBullet.Y, this);
-                bullet.Scale(30,30);
-                //CircleCollider bulletCollider = new CircleCollider(20, bullet);
-                AABBCollider bulletCollider = new AABBCollider(30, 30, bullet);
-                bullet.Collider = bulletCollider;
-                Engine.CurrentScene.AddActor(bullet);
-            }
+            //    _timeBetweenShots = 0;
+            //    Bullet bullet = new Bullet(Position, 200, "Enemy Bullet", directionOfBullet.X, directionOfBullet.Y, this);
+            //    bullet.SetScale(30, 30);
+            //    //CircleCollider bulletCollider = new CircleCollider(20, bullet);
+            //    AABBCollider bulletCollider = new AABBCollider(30, 30, bullet);
+            //    bullet.Collider = bulletCollider;
+            //    Engine.CurrentScene.AddActor(bullet);
+            //}
 
-            base.Update(deltaTime);
+            //base.Update(deltaTime);
         }
 
         public bool IsTargetInSight()

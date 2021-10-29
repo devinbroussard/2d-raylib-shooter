@@ -20,7 +20,7 @@ namespace Math_For_Games
         /// <summary>
         /// The forward facing direction of the actor
         /// </summary>
-        private Vector2 _forward = new Vector2(1, 0);
+        private Vector2 _forward = new Vector2(0, 0);
         private ActorTag _tag;
         private Collider _collider;
         private Matrix3 _transform = Matrix3.Identity;
@@ -79,8 +79,8 @@ namespace Math_For_Games
 
         public Actor(Vector2 position, string name = "Actor", string path = "", ActorTag tag = ActorTag.GENERIC )
         {
-          
-            Position = position;
+
+            SetTranslation(position.X, position.Y);
             _name = name;
             Tag = tag;
 
@@ -149,12 +149,10 @@ namespace Math_For_Games
         /// Applies the given values to the current translation
         /// </summary>
         /// <param name="translationX">The amount to move the x</param>
-        /// <param name="translationY">The amount to move hte y</param>
+        /// <param name="translationY">The amount to move the y</param>
         public void Translate(float translationX, float translationY)
         {
-            SetTranslation(translationX, translationY);
-
-            _transform *= _translation;
+            _translation *= Matrix3.CreateTranslation(translationX, translationY);
         }
 
         /// <summary>
@@ -172,9 +170,7 @@ namespace Math_For_Games
         /// <param name="radians"></param>
         public void Rotate(float radians)
         {
-            SetRotation(radians);
-
-            _transform *= _rotation;
+            _rotation *= Matrix3.CreateRotation(radians);
         }
 
         /// <summary>
@@ -194,9 +190,7 @@ namespace Math_For_Games
         /// <param name="y">The value to scale on the y axis</param>
         public void Scale(float x, float y)
         {
-            SetScale(x, y);
-
-            _transform *= _scale;
+            _scale *= Matrix3.CreateScale(x, y);
         }
 
     }
