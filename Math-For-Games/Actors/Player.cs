@@ -55,16 +55,6 @@ namespace Math_For_Games
                 bullet.Collider = bulletCollider;
                 Engine.CurrentScene.AddActor(bullet);
             }
-
-            if (xDirection == -1)
-                Forward = new Vector2(-1, 0);
-            else if (xDirection == 1)
-                Forward = new Vector2(1, 0);
-
-            if (Forward.X == -1)
-                SetScale(-80, 80);
-            else if (Forward.X == 1)
-                SetScale(80, 80);
             
             Velocity = moveDirection.Normalized * Speed * deltaTime;
 
