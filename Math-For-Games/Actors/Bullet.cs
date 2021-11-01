@@ -6,6 +6,11 @@ using Math_Library;
 
 namespace Math_For_Games
 {
+    public enum BulletType
+    {
+        COOKIE,
+        GUN 
+    }
     class Bullet : Actor
     {
         private float _speed;
@@ -17,6 +22,7 @@ namespace Math_For_Games
         /// </summary>
         private float _timeAlive;
         private Vector2 _moveDirection;
+        private BulletType _bulletType;
         private Actor _owner;
 
         public Actor Owner
@@ -35,13 +41,15 @@ namespace Math_For_Games
         }
 
 
-        public Bullet(Vector2 position, float speed, string name, float xDirection, float yDirection, Actor owner, string path = "Sprites/gun-bullet.png")
+        public Bullet(Vector2 position, float speed, string name, float xDirection, float yDirection, Actor owner, 
+            string path = "Sprites/gun-bullet.png", BulletType type = BulletType.GUN)
             : base(position, name, path)
         {
             _speed = speed;
             _xDirection = xDirection;
             _yDirection = yDirection;
             _owner = owner;
+            _bulletType = type;
 
             Forward = new Vector2(xDirection, yDirection);
         }
@@ -52,6 +60,9 @@ namespace Math_For_Games
         /// <param name="deltaTime"></param>
         public override void Update(float deltaTime)
         {
+            if (_bulletType == BulletType.COOKIE)
+                Rotate(2 * deltaTime);
+
             //Adds the delta time to the time that the bullet has been alive in the scene
             _timeAlive += deltaTime;
 

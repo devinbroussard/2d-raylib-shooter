@@ -48,8 +48,8 @@ namespace Math_For_Games
             if ((xDirectionForBullet != 0 || yDirectionForBullet != 0) && (_timeBetweenShots >=  _cooldownTime))
             {
                 _timeBetweenShots = 0;
-                Bullet bullet = new Bullet(Position, 200, "Player Bullet", xDirectionForBullet, yDirectionForBullet, this, "Sprites/cookie.png");
-                bullet.SetScale(30, 30);
+                Bullet bullet = new Bullet(Position, 200, "Player Bullet", xDirectionForBullet, yDirectionForBullet, this, "Sprites/cookie.png", BulletType.COOKIE);
+                bullet.SetScale(40, 40);
                 //CircleCollider bulletCollider = new CircleCollider(20, bullet);
                 AABBCollider bulletCollider = new AABBCollider(30, 30, bullet);
                 bullet.Collider = bulletCollider;
