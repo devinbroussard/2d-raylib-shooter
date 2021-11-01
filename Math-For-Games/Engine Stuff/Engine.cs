@@ -64,18 +64,18 @@ namespace Math_For_Games
             Scene scene = new Scene();
 
             Player player = new Player(800, 50, 200, 3, 0.5f);
-            player.SetScale(50, 50);
+            player.SetScale(60, 60);
 
             Enemy enemy1 = new Enemy(150, 150, 155, 3, player, 340, 0.5f);
-            enemy1.SetScale(50, 50);
+            enemy1.SetScale(60, 60);
             Enemy enemy2 = new Enemy(350, 200, 155, 3, player, 340, 0.5f);
-            enemy2.SetScale(50, 50);
+            enemy2.SetScale(60, 60);
             Enemy enemy3 = new Enemy(50, 250, 155, 3, player, 340, 0.5f);
-            enemy3.SetScale(50, 50);
+            enemy3.SetScale(60, 60);
             Enemy enemy4 = new Enemy(450, 250, 155, 3, player, 340, 0.5f);
-            enemy4.SetScale(50, 50);
+            enemy4.SetScale(60, 60);
             Enemy enemy5 = new Enemy(250, 10, 155, 3, player, 340, 0.5f);
-            enemy5.SetScale(50, 50);
+            enemy5.SetScale(60, 60);
 
 
 
@@ -97,12 +97,12 @@ namespace Math_For_Games
 
 
 
-            HealthCounter playerHealthCounter = new HealthCounter(player.Position.X, player.Position.Y, "Player Health Tracker", Color.BLACK, player);
-            HealthCounter enemy1HealthCounter = new HealthCounter(enemy1.Position.X, enemy1.Position.Y, "Enemy1 Health Tracker", Color.BLACK, enemy1);
-            HealthCounter enemy2HealthCounter = new HealthCounter(enemy2.Position.X, enemy2.Position.Y, "Enemy2 Health Tracker", Color.BLACK, enemy2);
-            HealthCounter enemy3HealthCounter = new HealthCounter(enemy3.Position.X, enemy3.Position.Y, "Enemy3 Health Tracker", Color.BLACK, enemy3);
-            HealthCounter enemy4HealthCounter = new HealthCounter(enemy4.Position.X, enemy4.Position.Y, "Enemy4 Health Tracker", Color.BLACK, enemy4);
-            HealthCounter enemy5HealthCounter = new HealthCounter(enemy5.Position.X, enemy5.Position.Y, "Enemy5 Health Tracker", Color.BLACK, enemy5);
+            HealthCounter playerHealthCounter = new HealthCounter(player.LocalPosition.X, player.LocalPosition.Y, "Player Health Tracker", Color.BLACK, player);
+            HealthCounter enemy1HealthCounter = new HealthCounter(enemy1.LocalPosition.X, enemy1.LocalPosition.Y, "Enemy1 Health Tracker", Color.BLACK, enemy1);
+            HealthCounter enemy2HealthCounter = new HealthCounter(enemy2.LocalPosition.X, enemy2.LocalPosition.Y, "Enemy2 Health Tracker", Color.BLACK, enemy2);
+            HealthCounter enemy3HealthCounter = new HealthCounter(enemy3.LocalPosition.X, enemy3.LocalPosition.Y, "Enemy3 Health Tracker", Color.BLACK, enemy3);
+            HealthCounter enemy4HealthCounter = new HealthCounter(enemy4.LocalPosition.X, enemy4.LocalPosition.Y, "Enemy4 Health Tracker", Color.BLACK, enemy4);
+            HealthCounter enemy5HealthCounter = new HealthCounter(enemy5.LocalPosition.X, enemy5.LocalPosition.Y, "Enemy5 Health Tracker", Color.BLACK, enemy5);
 
             scene.AddActor(player);
             scene.AddActor(enemy1);

@@ -22,7 +22,7 @@ namespace Math_For_Games
 
             if (_character.Health > 0)
             {
-                base.SetTranslation(_character.Position.X - 10, _character.Position.Y - 75);
+                base.SetTranslation(_character.LocalPosition.X - 10, _character.LocalPosition.Y - 75);
                 Text = _character.Health.ToString();
             }
 

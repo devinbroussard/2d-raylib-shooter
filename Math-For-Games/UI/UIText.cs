@@ -52,7 +52,7 @@ namespace Math_For_Games
         public override void Draw()
         {
             //Creating rectangle to use inside of Raylib's draw function
-            Rectangle textBox = new Rectangle(Position.X, Position.Y, Width, Height);
+            Rectangle textBox = new Rectangle(LocalPosition.X, LocalPosition.Y, Width, Height);
 
             //Raylib's text box
             Raylib.DrawTextRec(Font, Text, textBox, FontSize, 1, true, FontColor);

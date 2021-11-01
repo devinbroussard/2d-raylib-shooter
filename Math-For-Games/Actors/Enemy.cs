@@ -31,7 +31,7 @@ namespace Math_For_Games
             //The Enemy runs towards the player's position
             if (_actorToChase == null)
                 return;
-            Vector2 moveDirection = _actorToChase.Position - Position;
+            Vector2 moveDirection = _actorToChase.LocalPosition - LocalPosition;
 
             //The enemy runs away from the player's position
             //Vector2 moveDirection = Position - _actorToChase.Position;
@@ -51,10 +51,10 @@ namespace Math_For_Games
             }
             if (_timeBetweenShots >= 1 && !IsTargetInSight())
             {
-                Vector2 directionOfBullet = (_actorToChase.Position - Position).Normalized;
+                Vector2 directionOfBullet = (_actorToChase.LocalPosition - LocalPosition).Normalized;
 
                 _timeBetweenShots = 0;
-                Bullet bullet = new Bullet(Position, 500, "Enemy Bullet", directionOfBullet.X, directionOfBullet.Y, this);
+                Bullet bullet = new Bullet(LocalPosition, 500, "Enemy Bullet", directionOfBullet.X, directionOfBullet.Y, this);
                 bullet.SetScale(30, 30);
                 //CircleCollider bulletCollider = new CircleCollider(20, bullet);
                 AABBCollider bulletCollider = new AABBCollider(30, 30, bullet);
@@ -67,8 +67,8 @@ namespace Math_For_Games
 
         public bool IsTargetInSight()
         {
-            Vector2 directionOfTarget = (_actorToChase.Position - Position).Normalized;
-            float distanceOfTarget = Vector2.GetDistance(_actorToChase.Position, Position);
+            Vector2 directionOfTarget = (_actorToChase.LocalPosition - LocalPosition).Normalized;
+            float distanceOfTarget = Vector2.GetDistance(_actorToChase.LocalPosition, LocalPosition);
 
             return (Math.Acos(Vector2.GetDotProduct(directionOfTarget, Forward)) * 180/Math.PI) < _maxFov
                 && distanceOfTarget < 200;

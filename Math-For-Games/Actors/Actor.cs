@@ -22,10 +22,13 @@ namespace Math_For_Games
         /// </summary>
         private ActorTag _tag;
         private Collider _collider;
-        private Matrix3 _transform = Matrix3.Identity;
+        private Matrix3 _globalTransform = Matrix3.Identity;
+        private Matrix3 _localTransform = Matrix3.Identity;
         private Matrix3 _translation = Matrix3.Identity;
         private Matrix3 _rotation = Matrix3.Identity;
         private Matrix3 _scale = Matrix3.Identity;
+        private Actor[] _children = new Actor[0];
+        private Actor _parent;
         private Sprite _sprite;
 
         //The collider attached to this actor
@@ -46,7 +49,7 @@ namespace Math_For_Games
             get { return new Vector2(_rotation.M00, _rotation.M10); }
             set 
             {
-                Vector2 point = value.Normalized + Position;
+                Vector2 point = value.Normalized + LocalPosition;
                 LookAt(point);
             }
         }
@@ -65,12 +68,38 @@ namespace Math_For_Games
             get { return _started; }
         }
 
-        public Vector2 Position
+        public Vector2 LocalPosition
         {
             get { return new Vector2(_translation.M02, _translation.M12); }
             set 
             { SetTranslation(value.X, value.Y); }
         }
+
+        public Matrix3 WorldPosition
+        {
+            get; set;
+        }
+
+        public Matrix3 GlobalTransform
+        {
+            get; set;
+        }
+
+        public Matrix3 LocalTransform
+        {
+            get; set;
+        }
+
+        public Actor Parent
+        {
+            get; set;
+        }
+
+        public Actor[] Children
+        {
+            get;
+        }
+
 
         public Vector2 Size
         {
@@ -86,7 +115,7 @@ namespace Math_For_Games
         public Actor(Vector2 position, string name = "Actor", string path = "", ActorTag tag = ActorTag.GENERIC )
         {
             Forward = new Vector2(1, 0);
-            Position = position;
+            LocalPosition = position;
             _name = name;
             Tag = tag;
 
@@ -97,6 +126,15 @@ namespace Math_For_Games
         public Actor()
         { }
 
+        public void UpdateTransforms()
+        { }
+
+        public void AddChild(Actor child)
+        { }
+
+        public bool RemoveChild(Actor child)
+        { }
+
         public virtual void Start() 
         {
             _started = true;
@@ -104,14 +142,14 @@ namespace Math_For_Games
 
         public virtual void Update(float deltaTime) 
         {
-            _transform = _translation * _rotation * _scale;
+            _localTransform = _translation * _rotation * _scale;
         }
 
         public virtual void Draw() 
         {
             //Raylib.DrawCircleLines((int)Position.X, (int)Position.Y, 20, Color.WHITE);
             if (_sprite != null)
-                _sprite.Draw(_transform);
+                _sprite.Draw(_localTransform);
         }
 
         public virtual void End()
@@ -206,7 +244,7 @@ namespace Math_For_Games
         public void LookAt(Vector2 position)
         {
             //Find the direction that the actor should look in
-            Vector2 direction = (position - Position).Normalized;
+            Vector2 direction = (position - LocalPosition).Normalized;
             //Use the dot product to find the angle the actor needs to rotate
             float dotProd = Vector2.GetDotProduct(direction, Forward);
 

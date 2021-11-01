@@ -35,7 +35,7 @@ namespace Math_For_Games
                 return false;
 
             //Gets the distance between the two collider owners
-            float distance = Vector2.GetDistance(other.Owner.Position, Owner.Position);
+            float distance = Vector2.GetDistance(other.Owner.LocalPosition, Owner.LocalPosition);
             //Gets the distance of the combined radii of the two circles
             float combinedRadii = other.CollisionRadius + CollisionRadius;
 
@@ -56,7 +56,7 @@ namespace Math_For_Games
                 return false;
 
             //Creates a vector that represents the direction of the circle FROM the AABB collider
-            Vector2 direction = Owner.Position - other.Owner.Position;
+            Vector2 direction = Owner.LocalPosition - other.Owner.LocalPosition;
 
             //Clamps the X variable to the farthest x variables of the AABB
             direction.X = Math.Clamp(direction.X, -other.Width / 2, other.Width / 2);
@@ -64,10 +64,10 @@ namespace Math_For_Games
             direction.Y = Math.Clamp(direction.Y, -other.Height / 2, other.Height / 2);
 
             //Add the direction vector to the AABB center to get the closest point to the circle on the AABB
-            Vector2 closestPoint = other.Owner.Position + direction;
+            Vector2 closestPoint = other.Owner.LocalPosition + direction;
             
             //Gets the magnitude of the circle's center and the closest point on the AABB
-            float distanceFromClosestPoint = Vector2.GetDistance(Owner.Position, closestPoint);
+            float distanceFromClosestPoint = Vector2.GetDistance(Owner.LocalPosition, closestPoint);
 
             //Returns true if the circle's collision radius is greater than or equal to the distance from the closest point
             return distanceFromClosestPoint <= CollisionRadius;
@@ -76,7 +76,7 @@ namespace Math_For_Games
         public override void Draw()
         {
             base.Draw();
-            Raylib.DrawCircleLines((int)Owner.Position.X, (int)Owner.Position.Y, CollisionRadius, Color.GREEN);
+            Raylib.DrawCircleLines((int)Owner.LocalPosition.X, (int)Owner.LocalPosition.Y, CollisionRadius, Color.GREEN);
         }
     }
 }
