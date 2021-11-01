@@ -75,29 +75,37 @@ namespace Math_For_Games
             { SetTranslation(value.X, value.Y); }
         }
 
-        public Matrix3 WorldPosition
+        public Vector2 WorldPosition
         {
-            get; set;
+            get { return new Vector2((Parent.GlobalTransform.M02 + _translation.M02), (Parent.GlobalTransform.M12 + _translation.M12)); }
+            set { }
         }
 
         public Matrix3 GlobalTransform
         {
-            get; set;
+            get { return _globalTransform; } 
+            set { _globalTransform = value; }
         }
 
         public Matrix3 LocalTransform
         {
-            get; set;
+            get { return _localTransform; } 
+            private set
+            {
+                _localTransform = value;
+
+            }
         }
 
         public Actor Parent
         {
-            get; set;
+            get { return _parent; }
+            set { _parent = value; }
         }
 
         public Actor[] Children
         {
-            get;
+            get { return _children; }
         }
 
 
@@ -127,13 +135,50 @@ namespace Math_For_Games
         { }
 
         public void UpdateTransforms()
-        { }
+        {
+            _localTransform = _translation * _rotation * _scale;
+
+            if (Parent != null)
+                GlobalTransform = Parent.GlobalTransform * LocalTransform;
+            else GlobalTransform = LocalTransform;
+        }
 
         public void AddChild(Actor child)
-        { }
+        {
+            Actor[] tempArray = new Actor[_children.Length + 1];
+
+            for (int i = 0; i < _children.Length; i++)
+            {
+                tempArray[i] = _children[i];
+            }
+
+            tempArray[_children.Length] = child;
+            _children = tempArray;
+        }
 
         public bool RemoveChild(Actor child)
-        { }
+        {
+            bool removedActor = false;
+            Actor[] tempArray = new Actor[_children.Length - 1];
+
+            int j = 0;
+            for (int i = 0; i < _children.Length; i++)
+            {
+                if (_children[i] != child)
+                {
+                    tempArray[j] = _children[i];
+                    j++;
+                }
+                else
+                {
+                    removedActor = true;
+                    j++;
+                }
+            }
+
+            _children = tempArray;
+            return removedActor;
+        }
 
         public virtual void Start() 
         {
@@ -142,14 +187,14 @@ namespace Math_For_Games
 
         public virtual void Update(float deltaTime) 
         {
-            _localTransform = _translation * _rotation * _scale;
+            UpdateTransforms();
         }
 
         public virtual void Draw() 
         {
             //Raylib.DrawCircleLines((int)Position.X, (int)Position.Y, 20, Color.WHITE);
             if (_sprite != null)
-                _sprite.Draw(_localTransform);
+                _sprite.Draw(GlobalTransform);
         }
 
         public virtual void End()
