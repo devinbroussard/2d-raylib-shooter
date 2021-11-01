@@ -171,6 +171,7 @@ namespace Math_For_Games
                 }
                 else
                 {
+                    child.Parent = null;
                     removedActor = true;
                     j++;
                 }
