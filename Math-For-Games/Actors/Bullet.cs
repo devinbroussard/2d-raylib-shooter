@@ -35,13 +35,15 @@ namespace Math_For_Games
         }
 
 
-        public Bullet(Vector2 position, float speed, string name, float xDirection, float yDirection, Actor owner, string path = "gun-bullet.png")
+        public Bullet(Vector2 position, float speed, string name, float xDirection, float yDirection, Actor owner, string path = "Sprites/gun-bullet.png")
             : base(position, name, path)
         {
             _speed = speed;
             _xDirection = xDirection;
             _yDirection = yDirection;
             _owner = owner;
+
+            Forward = new Vector2(xDirection, yDirection);
         }
 
         /// <summary>

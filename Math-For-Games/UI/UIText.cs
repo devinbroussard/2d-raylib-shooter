@@ -44,7 +44,8 @@ namespace Math_For_Games
             Text = "";
             Width = 50;
             Height = 50;
-            FontSize = 15;
+            FontSize = 35;
+            FontColor = color;
             Font = Raylib.LoadFont("resources/fonts/alagard.png");
         }
 

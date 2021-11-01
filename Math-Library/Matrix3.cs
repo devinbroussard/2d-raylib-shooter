@@ -40,8 +40,8 @@ namespace Math_Library
         public static Matrix3 CreateRotation(float radians)
         {
             return new Matrix3(
-                (float)Math.Cos(radians), -(float)Math.Sin(radians), 0,
-                (float)Math.Sin(radians), (float)Math.Cos(radians), 0,
+                (float)Math.Cos(radians), (float)Math.Sin(radians), 0,
+                -(float)Math.Sin(radians), (float)Math.Cos(radians), 0,
                 0, 0, 1
                 );
         }
@@ -93,21 +93,27 @@ namespace Math_Library
         public static Matrix3 operator *(Matrix3 lhs, Matrix3 rhs)
         {
             return new Matrix3(
+                //Row1, Column1
                 ((lhs.M00 * rhs.M00) + (lhs.M01 * rhs.M10) + (lhs.M02 * rhs.M20)),
+                //Row1, Column2
                 ((lhs.M00 * rhs.M01) + (lhs.M01 * rhs.M11) + (lhs.M02 * rhs.M21)),
+                //Row1, Column3
                 ((lhs.M00 * rhs.M02) + (lhs.M01 * rhs.M12) + (lhs.M02 * rhs.M22)),
+
+                //Row2, Column1
                 ((lhs.M10 * rhs.M00) + (lhs.M11 * rhs.M10) + (lhs.M12 * rhs.M20)),
+                //Row2, Column2
                 ((lhs.M10 * rhs.M01) + (lhs.M11 * rhs.M11) + (lhs.M12 * rhs.M21)),
+                //Row2, Column3
                 ((lhs.M10 * rhs.M02) + (lhs.M11 * rhs.M12) + (lhs.M12 * rhs.M22)),
+
+                //Row3, Column1
                 ((lhs.M20 * rhs.M00) + (lhs.M21 * rhs.M10) + (lhs.M22 * rhs.M20)),
+                //Row3, Column2
                 ((lhs.M20 * rhs.M01) + (lhs.M21 * rhs.M11) + (lhs.M22 * rhs.M21)),
+                //Row3, Column3
                 ((lhs.M20 * rhs.M02) + (lhs.M21 * rhs.M12) + (lhs.M22 * rhs.M22))
                 );
         }
-
-    //    public Matrix3(
-    //float m00, float m01, float m02,
-    //float m10, float m11, float m12,
-    //float m20, float m21, float m22)
     }
 }

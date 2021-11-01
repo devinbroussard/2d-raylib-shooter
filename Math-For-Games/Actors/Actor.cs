@@ -20,7 +20,6 @@ namespace Math_For_Games
         /// <summary>
         /// The forward facing direction of the actor
         /// </summary>
-        private Vector2 _forward = new Vector2(0, 0);
         private ActorTag _tag;
         private Collider _collider;
         private Matrix3 _transform = Matrix3.Identity;
@@ -44,8 +43,12 @@ namespace Math_For_Games
 
         public Vector2 Forward
         {
-            get { return _forward; }
-            set { _forward = value; }
+            get { return new Vector2(_rotation.M00, _rotation.M10); }
+            set 
+            {
+                Vector2 point = value.Normalized + Position;
+                LookAt(point);
+            }
         }
 
         public Sprite Sprite
@@ -64,12 +67,15 @@ namespace Math_For_Games
 
         public Vector2 Position
         {
-            get { return new Vector2(_transform.M02, _transform.M12); }
+            get { return new Vector2(_translation.M02, _translation.M12); }
             set 
-            {
-                _transform.M02 = value.X;
-                _transform.M12 = value.Y;
-            }
+            { SetTranslation(value.X, value.Y); }
+        }
+
+        public Vector2 Size
+        {
+            get { return new Vector2(_scale.M00, _scale.M11); }
+            set { SetScale(value.X, value.Y); }
         }
 
         public Actor(float x, float y, string name = "Actor", string path = "", ActorTag tag = ActorTag.GENERIC) :
@@ -79,8 +85,8 @@ namespace Math_For_Games
 
         public Actor(Vector2 position, string name = "Actor", string path = "", ActorTag tag = ActorTag.GENERIC )
         {
-
-            SetTranslation(position.X, position.Y);
+            Forward = new Vector2(1, 0);
+            Position = position;
             _name = name;
             Tag = tag;
 
@@ -193,5 +199,33 @@ namespace Math_For_Games
             _scale *= Matrix3.CreateScale(x, y);
         }
 
+        /// <summary>
+        /// Changes the actor's forward position to face the given position
+        /// </summary>
+        /// <param name="position">The position the actor will face</param>
+        public void LookAt(Vector2 position)
+        {
+            //Find the direction that the actor should look in
+            Vector2 direction = (position - Position).Normalized;
+            //Use the dot product to find the angle the actor needs to rotate
+            float dotProd = Vector2.GetDotProduct(direction, Forward);
+
+            if (dotProd > 1)
+                dotProd = 1;
+
+            float angle = (float)Math.Acos(dotProd);
+
+            //Find a perpindicular vector to the direction
+            Vector2 perpDirection = new Vector2(direction.Y, -direction.X);
+            //Find the dot product of the perpindicular vector2 and the current forward 
+            float perpDot = Vector2.GetDotProduct(perpDirection, Forward);
+
+            //If the result is not 0, use it to change the sign of the angle to be either positive or negative
+            if (perpDot != 0)
+                angle *= -perpDot / Math.Abs(perpDot);
+
+            //Rotates the player by the angle given
+            Rotate(angle);
+        }
     }
 }

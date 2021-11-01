@@ -18,7 +18,7 @@ namespace Math_For_Games
             set { _lastHitTime = value; }
         }
 
-        public Player(float x, float y, float speed, int health, float cooldownTime, string name = "Player", string path = "lodis.png")
+        public Player(float x, float y, float speed, int health, float cooldownTime, string name = "Player", string path = "Sprites/lodis-left.png")
             : base(x, y, speed, health, name, path)
         {
             Speed = speed;
@@ -48,8 +48,8 @@ namespace Math_For_Games
             if ((xDirectionForBullet != 0 || yDirectionForBullet != 0) && (_timeBetweenShots >=  _cooldownTime))
             {
                 _timeBetweenShots = 0;
-                Bullet bullet = new Bullet(Position, 200, "Player Bullet", xDirectionForBullet, yDirectionForBullet, this, "cookie.png");
-                bullet.SetScale(50, 50);
+                Bullet bullet = new Bullet(Position, 200, "Player Bullet", xDirectionForBullet, yDirectionForBullet, this, "Sprites/cookie.png");
+                bullet.SetScale(30, 30);
                 //CircleCollider bulletCollider = new CircleCollider(20, bullet);
                 AABBCollider bulletCollider = new AABBCollider(30, 30, bullet);
                 bullet.Collider = bulletCollider;
@@ -57,6 +57,11 @@ namespace Math_For_Games
             }
             
             Velocity = moveDirection.Normalized * Speed * deltaTime;
+
+            if (0 < Velocity.X)
+                Sprite = new Sprite("Sprites/lodis-right.png");
+            else if (Velocity.X < 0)
+                Sprite = new Sprite("Sprites/lodis-left.png");
 
             base.Translate(Velocity.X, Velocity.Y);
 

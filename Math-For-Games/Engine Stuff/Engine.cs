@@ -64,18 +64,18 @@ namespace Math_For_Games
             Scene scene = new Scene();
 
             Player player = new Player(800, 50, 200, 3, 0.5f);
-            player.SetScale(80, 80);
+            player.SetScale(50, 50);
 
-            Enemy enemy1 = new Enemy(150, 150, 75, 3, player, 340, new Vector2(-1, 0), 1);
-            enemy1.SetScale(80, 80);
-            Enemy enemy2 = new Enemy(350, 200, 75, 3, player, 340, new Vector2(1, 0), 1);
-            enemy2.SetScale(80, 80);
-            Enemy enemy3 = new Enemy(50, 250, 75, 3, player, 340, new Vector2(0, -1), 1);
-            enemy3.SetScale(80, 80);
-            Enemy enemy4 = new Enemy(450, 250, 75, 3, player, 340, new Vector2(-1, 0), 1);
-            enemy4.SetScale(80, 80);
-            Enemy enemy5 = new Enemy(250, 10, 75, 3, player, 340, new Vector2(-1, 0), 1);
-            enemy5.SetScale(80, 80);
+            Enemy enemy1 = new Enemy(150, 150, 155, 3, player, 340, 0.5f);
+            enemy1.SetScale(50, 50);
+            Enemy enemy2 = new Enemy(350, 200, 155, 3, player, 340, 0.5f);
+            enemy2.SetScale(50, 50);
+            Enemy enemy3 = new Enemy(50, 250, 155, 3, player, 340, 0.5f);
+            enemy3.SetScale(50, 50);
+            Enemy enemy4 = new Enemy(450, 250, 155, 3, player, 340, 0.5f);
+            enemy4.SetScale(50, 50);
+            Enemy enemy5 = new Enemy(250, 10, 155, 3, player, 340, 0.5f);
+            enemy5.SetScale(50, 50);
 
 
 
@@ -97,12 +97,12 @@ namespace Math_For_Games
 
 
 
-            HealthCounter playerHealthCounter = new HealthCounter(player.Position.X, player.Position.Y, "Player Health Tracker", Color.SKYBLUE, player);
-            HealthCounter enemy1HealthCounter = new HealthCounter(enemy1.Position.X, enemy1.Position.Y, "Enemy1 Health Tracker", Color.MAROON, enemy1);
-            HealthCounter enemy2HealthCounter = new HealthCounter(enemy2.Position.X, enemy2.Position.Y, "Enemy2 Health Tracker", Color.MAROON, enemy2);
-            HealthCounter enemy3HealthCounter = new HealthCounter(enemy3.Position.X, enemy3.Position.Y, "Enemy3 Health Tracker", Color.MAROON, enemy3);
-            HealthCounter enemy4HealthCounter = new HealthCounter(enemy4.Position.X, enemy4.Position.Y, "Enemy4 Health Tracker", Color.MAROON, enemy4);
-            HealthCounter enemy5HealthCounter = new HealthCounter(enemy5.Position.X, enemy5.Position.Y, "Enemy5 Health Tracker", Color.MAROON, enemy5);
+            HealthCounter playerHealthCounter = new HealthCounter(player.Position.X, player.Position.Y, "Player Health Tracker", Color.BLACK, player);
+            HealthCounter enemy1HealthCounter = new HealthCounter(enemy1.Position.X, enemy1.Position.Y, "Enemy1 Health Tracker", Color.BLACK, enemy1);
+            HealthCounter enemy2HealthCounter = new HealthCounter(enemy2.Position.X, enemy2.Position.Y, "Enemy2 Health Tracker", Color.BLACK, enemy2);
+            HealthCounter enemy3HealthCounter = new HealthCounter(enemy3.Position.X, enemy3.Position.Y, "Enemy3 Health Tracker", Color.BLACK, enemy3);
+            HealthCounter enemy4HealthCounter = new HealthCounter(enemy4.Position.X, enemy4.Position.Y, "Enemy4 Health Tracker", Color.BLACK, enemy4);
+            HealthCounter enemy5HealthCounter = new HealthCounter(enemy5.Position.X, enemy5.Position.Y, "Enemy5 Health Tracker", Color.BLACK, enemy5);
 
             scene.AddActor(player);
             scene.AddActor(enemy1);
@@ -141,8 +141,7 @@ namespace Math_For_Games
         /// </summary>
         private void Draw()
         {
-            Sprite background = new Sprite("background.png");
-
+            Sprite background = new Sprite("Sprites/background.png");
             Raylib.BeginDrawing();
             Raylib.ClearBackground(Color.BLACK);
             background.Draw( new Matrix3(

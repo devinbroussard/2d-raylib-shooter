@@ -20,12 +20,13 @@ namespace Math_For_Games
         public override void Update(float deltaTime)
         {
 
-            if (_character.Health >= 0)
+            if (_character.Health > 0)
             {
-                base.SetTranslation(_character.Position.X - 10, _character.Position.Y - 70);
+                base.SetTranslation(_character.Position.X - 10, _character.Position.Y - 75);
                 Text = _character.Health.ToString();
             }
-            else
+
+            else 
                 Engine.CurrentScene.RemoveUIElement(this);
 
             base.Update(deltaTime);
