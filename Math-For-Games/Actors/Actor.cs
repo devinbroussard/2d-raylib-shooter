@@ -84,7 +84,11 @@ namespace Math_For_Games
         public Matrix3 GlobalTransform
         {
             get { return _globalTransform; } 
-            set { _globalTransform = value; }
+            //Needs to change local transform in relation to global
+            set
+            {
+                _globalTransform = value;
+            }
         }
 
         public Matrix3 LocalTransform
@@ -92,8 +96,9 @@ namespace Math_For_Games
             get { return _localTransform; } 
             private set
             {
-                _localTransform = value;
-
+                SetTranslation(value.M02, value.M12);
+                SetRotation(value.M10);
+                SetScale(value.M00, value.M11);
             }
         }
 
