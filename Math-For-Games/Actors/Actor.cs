@@ -77,28 +77,23 @@ namespace Math_For_Games
 
         public Vector2 WorldPosition
         {
-            get { return new Vector2(GlobalTransform.M02, GlobalTransform.M12); }
-            set 
-            {
-                if (Parent != null)
-                {
-                    Vector2 offset = value - Parent.WorldPosition;
-                    SetTranslation(offset.X, offset.Y);
-                }
-                else
-                    SetTranslation(value.X, value.Y);
-            }
+            get { return new Vector2((Parent.GlobalTransform.M02 + _translation.M02), (Parent.GlobalTransform.M12 + _translation.M12)); }
+            set { }
         }
 
         public Matrix3 GlobalTransform
         {
-            get { return _globalTransform; }
-            private set { _globalTransform = value; }
+            get { return _globalTransform; } 
+            //Needs to change local transform in relation to global
+            set
+            {
+                _globalTransform = value;
+            }
         }
 
         public Matrix3 LocalTransform
         {
-            get { return _localTransform; }
+            get { return _localTransform; } 
             private set
             {
                 SetTranslation(value.M02, value.M12);
@@ -124,7 +119,6 @@ namespace Math_For_Games
             get { return new Vector2(_scale.M00, _scale.M11); }
             set { SetScale(value.X, value.Y); }
         }
-
 
         public Actor(float x, float y, string name = "Actor", string path = "", ActorTag tag = ActorTag.GENERIC) :
             this(new Vector2 { X = x, Y = y }, name, path, tag)
@@ -192,7 +186,6 @@ namespace Math_For_Games
             return removedActor;
         }
 
-
         public virtual void Start() 
         {
             _started = true;
@@ -200,14 +193,14 @@ namespace Math_For_Games
 
         public virtual void Update(float deltaTime) 
         {
-            _localTransform = _translation * _rotation * _scale;
+            UpdateTransforms();
         }
 
         public virtual void Draw() 
         {
             //Raylib.DrawCircleLines((int)Position.X, (int)Position.Y, 20, Color.WHITE);
             if (_sprite != null)
-                _sprite.Draw(_localTransform);
+                _sprite.Draw(GlobalTransform);
         }
 
         public virtual void End()
