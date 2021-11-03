@@ -75,29 +75,47 @@ namespace Math_For_Games
             { SetTranslation(value.X, value.Y); }
         }
 
-        public Matrix3 WorldPosition
+        public Vector2 WorldPosition
         {
-            get; set;
+            get { return new Vector2(GlobalTransform.M02, GlobalTransform.M12); }
+            set 
+            {
+                if (Parent != null)
+                {
+                    Vector2 offset = value - Parent.WorldPosition;
+                    SetTranslation(offset.X, offset.Y);
+                }
+                else
+                    SetTranslation(value.X, value.Y);
+            }
         }
 
         public Matrix3 GlobalTransform
         {
-            get; set;
+            get { return _globalTransform; }
+            private set { _globalTransform = value; }
         }
 
         public Matrix3 LocalTransform
         {
-            get; set;
+            get { return _localTransform; }
+            private set
+            {
+                SetTranslation(value.M02, value.M12);
+                SetRotation(value.M10);
+                SetScale(value.M00, value.M11);
+            }
         }
 
         public Actor Parent
         {
-            get; set;
+            get { return _parent; }
+            set { _parent = value; }
         }
 
         public Actor[] Children
         {
-            get;
+            get { return _children; }
         }
 
 
@@ -106,6 +124,7 @@ namespace Math_For_Games
             get { return new Vector2(_scale.M00, _scale.M11); }
             set { SetScale(value.X, value.Y); }
         }
+
 
         public Actor(float x, float y, string name = "Actor", string path = "", ActorTag tag = ActorTag.GENERIC) :
             this(new Vector2 { X = x, Y = y }, name, path, tag)
@@ -127,13 +146,52 @@ namespace Math_For_Games
         { }
 
         public void UpdateTransforms()
-        { }
+        {
+            _localTransform = _translation * _rotation * _scale;
+
+            if (Parent != null)
+                GlobalTransform = Parent.GlobalTransform * LocalTransform;
+            else GlobalTransform = LocalTransform;
+        }
 
         public void AddChild(Actor child)
-        { }
+        {
+            Actor[] tempArray = new Actor[_children.Length + 1];
+
+            for (int i = 0; i < _children.Length; i++)
+            {
+                tempArray[i] = _children[i];
+            }
+
+            tempArray[_children.Length] = child;
+            _children = tempArray;
+        }
 
         public bool RemoveChild(Actor child)
-        { }
+        {
+            bool removedActor = false;
+            Actor[] tempArray = new Actor[_children.Length - 1];
+
+            int j = 0;
+            for (int i = 0; i < _children.Length; i++)
+            {
+                if (_children[i] != child)
+                {
+                    tempArray[j] = _children[i];
+                    j++;
+                }
+                else
+                {
+                    child.Parent = null;
+                    removedActor = true;
+                    j++;
+                }
+            }
+
+            _children = tempArray;
+            return removedActor;
+        }
+
 
         public virtual void Start() 
         {
