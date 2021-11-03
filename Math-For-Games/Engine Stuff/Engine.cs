@@ -75,7 +75,6 @@ namespace Math_For_Games
             moon.Parent = planet;
 
             sun.AddChild(planet);
-            planet.Parent = sun;
             
 
 
