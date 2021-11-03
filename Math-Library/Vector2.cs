@@ -43,7 +43,7 @@ namespace Math_Library
             if (Magnitude == 0)
                 return new Vector2();
 
-            else return this / Magnitude;
+            else return this /= Magnitude;
         }
 
         /// <param name="lhs">The left hand side of the operation</param>
