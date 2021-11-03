@@ -54,6 +54,17 @@ namespace Math_For_Games
             }
         }
 
+        public float ScaleX
+        {
+            get { return new Vector2(_scale.M00, _scale.M10).Magnitude; }
+        }
+
+        public float ScaleY
+        {
+            get { return new Vector2(_scale.M01, _scale.M11).Magnitude; }
+        }
+
+
         public Sprite Sprite
         {
             get { return _sprite; }
@@ -77,8 +88,18 @@ namespace Math_For_Games
 
         public Vector2 WorldPosition
         {
-            get { return new Vector2((Parent.GlobalTransform.M02 + _translation.M02), (Parent.GlobalTransform.M12 + _translation.M12)); }
-            set { }
+            get { return new Vector2(_globalTransform.M02, _globalTransform.M12); }
+            set
+            {
+                if (Parent != null)
+                {
+                    Vector2 offset = value - Parent.WorldPosition;
+
+                    SetTranslation(offset.X/Parent.ScaleX, offset.Y/Parent.ScaleY);
+                }
+                else
+                    SetTranslation(value.X, value.Y);
+            }
         }
 
         public Matrix3 GlobalTransform
@@ -159,6 +180,8 @@ namespace Math_For_Games
 
             tempArray[_children.Length] = child;
             _children = tempArray;
+
+            child.Parent = this;
         }
 
         public bool RemoveChild(Actor child)

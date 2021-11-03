@@ -23,9 +23,10 @@ namespace Math_For_Games
             Tag = ActorTag.ENEMY;
             _cooldownTime = cooldownTime;
         }
-
+        
         public override void Update(float deltaTime)
-        {
+        { 
+
             Rotate(3 * deltaTime);
 
             base.Update(deltaTime);

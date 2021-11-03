@@ -68,16 +68,14 @@ namespace Math_For_Games
 
             Enemy planet = new Enemy(1.5f, 0, 2, 2, sun, 360, 0);
             planet.SetScale(0.5f, 0.5f);
-
-            Enemy moon = new Enemy(1.5f, 0, 2, 2, planet, 360, 0);
+           
+            Enemy moon = new Enemy(1, 0, 2, 2, planet, 360, 0);
             moon.SetScale(0.5f, 0.5f);
             planet.AddChild(moon);
             moon.Parent = planet;
 
             sun.AddChild(planet);
             planet.Parent = sun;
-            
-
 
             scene.AddActor(sun);
             scene.AddActor(planet);
